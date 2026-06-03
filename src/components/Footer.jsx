@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="mx-auto max-w-5xl text-center">
         <p className="eyebrow mb-3">A Celebration of Grace</p>
         <h3 className="display text-3xl text-foil sm:text-4xl">{event.honoree}</h3>
-        <p className="mt-1 display text-lg text-ivory/70">I'm Turning 60</p>
+        <p className="mt-1 display text-lg text-ivory/70">Turning 60</p>
 
         <GoldDivider className="my-8" />
 

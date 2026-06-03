@@ -47,7 +47,7 @@ export default function Hero() {
             className="display text-4xl font-medium leading-[1.05] text-ivory sm:text-5xl lg:text-6xl"
           >
             {event.honoree}'s
-            <span className="block text-foil">Birthday Thanksgiving</span>
+            <span className="block text-foil">60th Birthday</span>
           </motion.h1>
 
           <motion.div
@@ -58,7 +58,7 @@ export default function Hero() {
             className="mt-5 flex items-center justify-center gap-4 md:justify-start"
           >
             <span className="rule-gold w-10" />
-            <span className="display text-2xl italic text-gold-light sm:text-3xl">I'm Turning 60</span>
+            <span className="display text-2xl italic text-gold-light sm:text-3xl">Turning 60</span>
             <span className="rule-gold w-10" />
           </motion.div>
 
@@ -70,7 +70,7 @@ export default function Hero() {
             className="mx-auto mt-7 max-w-md font-body text-sm leading-relaxed text-ivory/70 sm:text-base md:mx-0"
           >
             With hearts full of gratitude, we invite you to join us in celebrating 60 years of life,
-            grace, faith, and God's goodness in the life of {event.honoree}.
+            grace, and faith in the life of {event.honoree}. A birthday marked by family and gratitude.
           </motion.p>
 
           <motion.div custom={4} variants={fade} initial="hidden" animate="show" className="mt-8">
@@ -78,7 +78,7 @@ export default function Hero() {
               className="md:justify-start"
               buttons={[
                 { label: 'View Event Details', to: '/event-details' },
-                { label: 'Leave a Wish or Prayer', to: '/wishes-prayers', variant: 'outline' },
+                { label: 'Leave a Message or Prayer', to: '/wishes-prayers', variant: 'outline' },
               ]}
             />
           </motion.div>

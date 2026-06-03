@@ -15,7 +15,7 @@ export default function EventDetails() {
         <SectionHeading
           eyebrow="Join Us"
           title="Event Details"
-          subtitle="A joyful gathering of thanksgiving, prayer, worship, and celebration."
+          subtitle="A joyful gathering of prayer, worship, and celebration, marked by family and gratitude."
         />
 
         <div className="mt-12">
@@ -39,7 +39,7 @@ export default function EventDetails() {
           buttons={[
             { label: 'Open in Google Maps', href: MAPS_URL, external: true },
             { label: 'RSVP', to: '/rsvp' },
-            { label: 'Leave a Wish or Prayer', to: '/wishes-prayers', variant: 'outline' },
+            { label: 'Leave a Message or Prayer', to: '/wishes-prayers', variant: 'outline' },
           ]}
         />
 
@@ -52,8 +52,8 @@ export default function EventDetails() {
           className="mt-12 rounded-2xl border border-gold/25 bg-gold-soft px-6 py-6 text-center"
         >
           <p className="display text-lg italic leading-relaxed text-ivory/85 sm:text-xl">
-            Please arrive early and join us for a joyful time of thanksgiving, prayer, worship, and
-            celebration.
+            Please arrive early and join us for a joyful time of prayer, worship, and celebration,
+            marked by family and gratitude.
           </p>
         </motion.div>
       </div>

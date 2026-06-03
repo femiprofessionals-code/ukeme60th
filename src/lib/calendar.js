@@ -43,7 +43,7 @@ export function downloadICS() {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'ukeme-60th-thanksgiving.ics'
+  a.download = 'ukeme-60th-birthday.ics'
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)

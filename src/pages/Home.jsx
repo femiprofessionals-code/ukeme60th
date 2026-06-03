@@ -24,7 +24,7 @@ export default function Home() {
       {/* About / Honoree */}
       <section className="relative bg-chocolate px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto max-w-3xl">
-          <SectionHeading eyebrow="A Thanksgiving" title="More Than a Birthday" />
+          <SectionHeading eyebrow="Family & Gratitude" title="More Than a Birthday" />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -32,8 +32,8 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="mt-8 text-center font-body text-base leading-relaxed text-ivory/75 sm:text-lg"
           >
-            This milestone is more than a birthday. It is a thanksgiving — a celebration of God's
-            faithfulness, a life of love, strength, service, family, and grace.
+            This milestone is more than a birthday. It is a celebration marked by family and
+            gratitude, honoring a life of love, strength, service, faith, and grace.
           </motion.p>
         </div>
       </section>
@@ -49,7 +49,7 @@ export default function Home() {
                 <SummaryItem label="Date" value={event.dateLabel} />
                 <SummaryItem label="Time" value={event.timeLabel} />
                 <SummaryItem label="Venue" value={event.venue} />
-                <SummaryItem label="Location" value={event.cityShort} />
+                <SummaryItem label="Location" value={event.addressLine} />
               </div>
               <GoldDivider className="my-9" />
               <CTAButtons
@@ -73,9 +73,9 @@ export default function Home() {
             transition={{ duration: 0.9 }}
             className="display text-2xl leading-relaxed text-ivory/90 sm:text-3xl"
           >
-            "Sixty years is a testimony of grace, strength, and divine faithfulness. This celebration
+            "Sixty years is a testimony of grace, strength, and faithfulness. This celebration
             honors not only a birthday, but a life beautifully marked by love, service, family, and
-            thanksgiving."
+            gratitude."
           </motion.blockquote>
           <GoldDivider className="mt-9" />
         </div>

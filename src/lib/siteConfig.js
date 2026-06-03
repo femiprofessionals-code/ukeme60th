@@ -5,8 +5,9 @@
 
 export const event = {
   honoree: 'Ukeme Falade',
-  title: "Ukeme Falade's Birthday Thanksgiving",
-  theme: "I'm Turning 60",
+  title: "Ukeme Falade's 60th Birthday",
+  theme: 'Turning 60',
+  tagline: 'A Birthday Marked by Family and Gratitude',
   milestone: 60,
 
   dateLabel: 'Sunday, September 27, 2026',
@@ -21,9 +22,9 @@ export const event = {
   startUTC: '2026-09-27T14:00:00Z',
   endUTC: '2026-09-27T17:00:00Z',
 
-  calendarTitle: "Ukeme Falade's Birthday Thanksgiving",
+  calendarTitle: "Ukeme Falade's 60th Birthday",
   calendarDescription:
-    "Join us for Ukeme Falade's 60th Birthday Thanksgiving — a joyful celebration of life, grace, faith, and God's goodness.",
+    "Join us for Ukeme Falade's 60th Birthday, a joyful celebration of 60 years of life, grace, and faith, marked by family and gratitude.",
   calendarLocation: 'RCCG Word of Life Center, 11313 Lockwood Dr, Silver Spring, MD 20904',
 }
 
@@ -36,46 +37,22 @@ export const MAPS_URL =
   encodeURIComponent('RCCG Word of Life Center, 11313 Lockwood Dr, Silver Spring, MD 20904')
 
 // ---------------------------------------------------------------------------
-//  Gallery images. Replace the files in /public/images with the same names,
-//  or change the src strings below. The invitation image leads the set.
+//  Gallery. A single featured portrait (the black-dress photo). This same
+//  image is used on the home hero. To swap it, change the one src below and
+//  drop the matching file into /public/images.
 // ---------------------------------------------------------------------------
 export const galleryImages = [
   {
-    src: '/images/invitation.jpg',
-    alt: 'Ukeme Falade 60th birthday thanksgiving invitation',
-    caption: 'You Are Invited',
+    src: '/images/ukeme-falade.jpg',
+    alt: 'Ukeme Falade in her black dress',
+    caption: 'Turning 60',
     feature: true,
-  },
-  {
-    src: '/images/ukeme-1.jpg',
-    alt: 'Ukeme Falade celebration portrait',
-    caption: 'A Life of Grace',
-  },
-  {
-    src: '/images/ukeme-2.jpg',
-    alt: 'Ukeme Falade birthday thanksgiving image',
-    caption: '60 Years of Thanksgiving',
-  },
-  {
-    src: '/images/ukeme-3.jpg',
-    alt: 'Ukeme Falade family and legacy image',
-    caption: 'Family, Faith & Legacy',
-  },
-  {
-    src: '/images/ukeme-4.jpg',
-    alt: 'Ukeme Falade milestone celebration image',
-    caption: "A Celebration of God's Faithfulness",
-  },
-  {
-    src: '/images/ukeme-5.jpg',
-    alt: 'Ukeme Falade elegant portrait',
-    caption: 'Grace, Joy & Excellence',
   },
 ]
 
 // ---------------------------------------------------------------------------
-//  Sample approved messages for the Wishes & Prayers wall. Replace or connect
-//  to a live datastore later (see WishesPrayers page + README).
+//  Approved messages shown on the Messages and Prayers wall. Edit, add, or
+//  remove freely. (See WishesPrayers page + README to connect a live source.)
 // ---------------------------------------------------------------------------
 export const sampleMessages = [
   {
@@ -88,36 +65,36 @@ export const sampleMessages = [
   {
     name: 'Grace O.',
     relationship: 'Daughter',
-    type: 'Birthday Wish',
+    type: 'Birthday Message',
     message:
-      'Happy 60th, Mummy. You taught us faith before you taught us anything else. We thank God for the gift of your love and your prayers over our lives.',
+      'Happy 60th, Mummy. You taught us faith before you taught us anything else. We celebrate the gift of your love, your wisdom, and your prayers over our lives.',
   },
   {
     name: 'Deacon Samuel I.',
     relationship: 'Family Friend',
     type: 'Prayer',
     message:
-      'Father, we thank You for sixty years of grace. Crown these years with long life, deeper joy, and the continued favor of Heaven. In Jesus name, amen.',
+      'Father, we honor You for sixty years of grace over Ukeme. Crown these new years with long life, deeper joy, and the continued favor of Heaven. In Jesus name, amen.',
   },
   {
     name: 'Aunty Ruth',
     relationship: 'Sister',
     type: 'Memory',
     message:
-      'I still remember your quiet kindness when we had nothing but each other. You have always carried light into every room. Sixty years and still shining.',
+      'I still remember your quiet kindness when we had little more than each other. You have always carried light into every room. Sixty years, and still shining.',
   },
   {
     name: 'The Adeyemi Family',
     relationship: 'Church Family',
-    type: 'Thanksgiving Note',
+    type: 'Note of Gratitude',
     message:
-      'We give thanks for a life of service and humility. The Word of Life Center is richer for your faithfulness. Congratulations on this beautiful milestone.',
+      'We are grateful for a life of service and humility. Our church family is richer for your faithfulness. Congratulations on this beautiful milestone, with love.',
   },
   {
     name: 'Daniel K.',
     relationship: 'Nephew',
-    type: 'Birthday Wish',
+    type: 'Birthday Message',
     message:
-      'To the one who prays for all of us by name — happy 60th. May the God you serve so faithfully fill these new years with peace and gladness.',
+      'To the one who prays for all of us by name, happy 60th. May the God you serve so faithfully fill these years ahead with peace, family, and gladness.',
   },
 ]

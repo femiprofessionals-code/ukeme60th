@@ -55,7 +55,7 @@ export default function RSVPForm() {
     return (
       <SuccessMessage>
         Thank you. Your RSVP has been received. We look forward to celebrating this joyful
-        Thanksgiving with you.
+        milestone with you.
       </SuccessMessage>
     )
   }

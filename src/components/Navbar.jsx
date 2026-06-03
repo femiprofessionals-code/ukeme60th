@@ -6,7 +6,7 @@ import BrandMark from './BrandMark'
 export const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/event-details', label: 'Event Details' },
-  { to: '/wishes-prayers', label: 'Wishes & Prayers' },
+  { to: '/wishes-prayers', label: 'Messages & Prayers' },
   { to: '/gallery', label: 'Gallery' },
   { to: '/rsvp', label: 'RSVP' },
 ]

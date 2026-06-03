@@ -4,12 +4,12 @@ import LoadingButton from './LoadingButton'
 import SuccessMessage from './SuccessMessage'
 import ErrorMessage from './ErrorMessage'
 
-const MESSAGE_TYPES = ['Birthday Wish', 'Prayer', 'Scripture', 'Memory', 'Thanksgiving Note']
+const MESSAGE_TYPES = ['Birthday Message', 'Prayer', 'Scripture', 'Memory', 'Note of Gratitude']
 
 const empty = {
   name: '',
   relationship: '',
-  messageType: 'Birthday Wish',
+  messageType: 'Birthday Message',
   message: '',
   displayPublicly: true,
 }

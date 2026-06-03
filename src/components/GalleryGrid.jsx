@@ -5,29 +5,32 @@ import ImageFrame from './ImageFrame'
 export default function GalleryGrid({ images = [] }) {
   const [active, setActive] = useState(null)
 
+  const single = images.length === 1
+
+  const tile = (img, i) => (
+    <motion.button
+      key={img.src}
+      type="button"
+      onClick={() => setActive(img)}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.7, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      className="block w-full break-inside-avoid text-left"
+    >
+      <ImageFrame src={img.src} alt={img.alt} caption={img.caption} ratio="aspect-[4/5]" />
+    </motion.button>
+  )
+
   return (
     <>
-      <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-        {images.map((img, i) => (
-          <motion.button
-            key={img.src}
-            type="button"
-            onClick={() => setActive(img)}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.7, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className={`block w-full break-inside-avoid text-left ${img.feature ? 'sm:col-span-2' : ''}`}
-          >
-            <ImageFrame
-              src={img.src}
-              alt={img.alt}
-              caption={img.caption}
-              ratio={i % 2 === 0 ? 'aspect-[3/4]' : 'aspect-[4/5]'}
-            />
-          </motion.button>
-        ))}
-      </div>
+      {single ? (
+        <div className="mx-auto w-full max-w-sm">{tile(images[0], 0)}</div>
+      ) : (
+        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
+          {images.map((img, i) => tile(img, i))}
+        </div>
+      )}
 
       <AnimatePresence>
         {active && (

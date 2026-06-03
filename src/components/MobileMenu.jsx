@@ -59,7 +59,7 @@ export default function MobileMenu({ open, onClose, links }) {
 
             <div className="mt-auto px-6 py-8">
               <div className="mb-4 h-px w-full rule-gold" />
-              <p className="display text-center text-lg text-ivory/70">I'm Turning 60</p>
+              <p className="display text-center text-lg text-ivory/70">Turning 60</p>
             </div>
           </motion.aside>
         </>

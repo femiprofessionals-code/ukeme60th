@@ -27,7 +27,10 @@ export default function EventDetailsCard() {
     >
       <DecorativeBorder>
         <div className="glass-card rounded-2xl px-7 py-8 sm:px-10 sm:py-10">
-          <h3 className="display mb-2 text-center text-2xl text-foil sm:text-3xl">{event.title}</h3>
+          <h3 className="display mb-2 text-center text-2xl text-foil sm:text-3xl">
+            {event.honoree}
+            <span className="mt-1 block text-xl text-ivory/85 sm:text-2xl">{event.tagline}</span>
+          </h3>
           <div className="mx-auto mb-4 h-px w-24 rule-gold" />
           <div className="divide-y divide-gold/15">
             <Row
