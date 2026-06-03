@@ -4,25 +4,29 @@ export default {
   theme: {
     extend: {
       colors: {
+        // "chocolate" keys retained as names so existing classes keep working,
+        // but remapped to black-marble tones to match the invitation.
         chocolate: {
-          DEFAULT: '#2A1A12',
-          deep: '#1E120C',
-          espresso: '#150C07',
-          warm: '#3B2618',
-          card: '#241710',
+          DEFAULT: '#131316',
+          deep: '#0E0E10',
+          espresso: '#09090A',
+          warm: '#1A1A1D',
+          card: '#161618',
         },
         gold: {
-          DEFAULT: '#C9A24B',
-          light: '#E8CD8C',
-          pale: '#F2E2BA',
-          deep: '#A87E2E',
+          DEFAULT: '#BE9650',
+          light: '#DEC894',
+          pale: '#EFE3C3',
+          deep: '#8E6A34',
         },
-        ivory: '#F7F1E3',
-        cream: '#EFE6D2',
+        ivory: '#F3EAD6',
+        cream: '#E9DBBB',
+        // "royal" retained as a name but remapped to warm gold so any
+        // remaining usage reads as a soft gold glow, never blue.
         royal: {
-          DEFAULT: '#1E3A8A',
-          light: '#3B5BBF',
-          glow: '#2747A8',
+          DEFAULT: '#5A4220',
+          light: '#7A5A2C',
+          glow: '#6B4E26',
         },
       },
       fontFamily: {
@@ -30,13 +34,13 @@ export default {
         body: ['Jost', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        gold: '0 0 0 1px rgba(201,162,75,0.35), 0 18px 50px -20px rgba(0,0,0,0.7)',
-        card: '0 24px 60px -28px rgba(0,0,0,0.75)',
+        gold: '0 0 0 1px rgba(203,161,92,0.35), 0 18px 50px -20px rgba(0,0,0,0.85)',
+        card: '0 24px 60px -28px rgba(0,0,0,0.85)',
       },
       backgroundImage: {
-        'gold-gradient': 'linear-gradient(135deg, #E8CD8C 0%, #C9A24B 45%, #A87E2E 100%)',
-        'gold-soft': 'linear-gradient(135deg, rgba(232,205,140,0.18), rgba(168,126,46,0.06))',
-        'choco-radial': 'radial-gradient(120% 80% at 50% 0%, #3B2618 0%, #2A1A12 45%, #150C07 100%)',
+        'gold-gradient': 'linear-gradient(135deg, #EFE3C3 0%, #BE9650 45%, #8E6A34 100%)',
+        'gold-soft': 'linear-gradient(135deg, rgba(233,210,160,0.16), rgba(154,110,55,0.05))',
+        'choco-radial': 'radial-gradient(120% 85% at 50% 0%, #1A1A1D 0%, #131316 42%, #09090A 100%)',
       },
       keyframes: {
         shimmer: {
@@ -51,11 +55,16 @@ export default {
           '0%,100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-8px)' },
         },
+        bob: {
+          '0%,100%': { transform: 'translateY(0) rotate(-1deg)' },
+          '50%': { transform: 'translateY(-12px) rotate(1deg)' },
+        },
       },
       animation: {
-        shimmer: 'shimmer 6s linear infinite',
+        shimmer: 'shimmer 8s linear infinite',
         twinkle: 'twinkle 4s ease-in-out infinite',
         floatslow: 'floatslow 7s ease-in-out infinite',
+        bob: 'bob 9s ease-in-out infinite',
       },
     },
   },

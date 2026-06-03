@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
 import Sparkles from './Sparkles'
+import BrandMark from './BrandMark'
 
 export default function MobileMenu({ open, onClose, links }) {
   return (
@@ -25,7 +26,7 @@ export default function MobileMenu({ open, onClose, links }) {
             <div className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-gold/60 to-transparent" />
 
             <div className="flex items-center justify-between px-6 py-6">
-              <span className="display text-xl text-foil">Ukeme · 60</span>
+              <BrandMark />
               <button onClick={onClose} aria-label="Close menu" className="text-gold-light">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />

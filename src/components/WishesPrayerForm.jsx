@@ -115,7 +115,7 @@ export default function WishesPrayerForm() {
           type="checkbox"
           checked={form.displayPublicly}
           onChange={update('displayPublicly')}
-          className="mt-0.5 h-4 w-4 shrink-0 accent-[#c9a24b]"
+          className="mt-0.5 h-4 w-4 shrink-0 accent-[#BE9650]"
         />
         You may display this message publicly on the website
       </label>

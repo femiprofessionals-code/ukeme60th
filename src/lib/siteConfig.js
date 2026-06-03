@@ -10,15 +10,15 @@ export const event = {
   milestone: 60,
 
   dateLabel: 'Sunday, September 27, 2026',
-  timeLabel: '12:00 PM ET – 1:00 PM ET',
+  timeLabel: '10:00 AM ET – 1:00 PM ET',
 
   venue: 'RCCG Word of Life Center',
   addressLine: '11313 Lockwood Dr, Silver Spring, MD 20904',
   cityShort: 'Silver Spring, Maryland',
 
   // ISO start/end. ET on Sep 27, 2026 is EDT (UTC-4).
-  // 12:00 PM EDT == 16:00 UTC,  1:00 PM EDT == 17:00 UTC.
-  startUTC: '2026-09-27T16:00:00Z',
+  // 10:00 AM EDT == 14:00 UTC,  1:00 PM EDT == 17:00 UTC.
+  startUTC: '2026-09-27T14:00:00Z',
   endUTC: '2026-09-27T17:00:00Z',
 
   calendarTitle: "Ukeme Falade's Birthday Thanksgiving",

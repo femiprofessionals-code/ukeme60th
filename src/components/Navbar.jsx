@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import MobileMenu from './MobileMenu'
+import BrandMark from './BrandMark'
 
 export const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -31,13 +32,8 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-          <Link to="/" className="group flex items-center gap-2">
-            <span className="display text-xl font-semibold tracking-wide text-foil sm:text-2xl">
-              Ukeme Falade
-            </span>
-            <span className="hidden font-body text-[10px] uppercase tracking-[0.35em] text-gold/70 sm:inline">
-              · 60 ·
-            </span>
+          <Link to="/" className="group flex items-center gap-2" aria-label="Home">
+            <BrandMark />
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">

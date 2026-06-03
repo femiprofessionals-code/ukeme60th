@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --gold: #c9a24b;
-  --gold-light: #e8cd8c;
+  --gold: #BE9650;
+  --gold-light: #DEC894;
 }
 
 * {
@@ -17,7 +17,7 @@ html {
 
 body {
   margin: 0;
-  background-color: #150c07;
+  background-color: #09090A;
   color: #f7f1e3;
   font-family: 'Jost', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -32,7 +32,7 @@ body {
 
   /* Foil-style gold text */
   .text-foil {
-    background: linear-gradient(135deg, #f2e2ba 0%, #e8cd8c 30%, #c9a24b 55%, #e8cd8c 80%, #a87e2e 100%);
+    background: linear-gradient(135deg, #EFE3C3 0%, #DEC894 30%, #BE9650 55%, #DEC894 80%, #8E6A34 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -47,51 +47,51 @@ body {
     letter-spacing: 0.42em;
     font-weight: 400;
     font-size: 0.72rem;
-    color: #c9a24b;
+    color: #BE9650;
   }
 
   /* Hairline rules */
   .rule-gold {
-    background: linear-gradient(90deg, transparent, rgba(201, 162, 75, 0.75), transparent);
+    background: linear-gradient(90deg, transparent, rgba(190, 150, 80, 0.75), transparent);
     height: 1px;
   }
 
   .btn-gold {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 font-body text-sm font-medium tracking-wide transition-all duration-300;
-    background-image: linear-gradient(135deg, #e8cd8c 0%, #c9a24b 50%, #a87e2e 100%);
-    color: #1e120c;
-    border: 1px solid rgba(242, 226, 186, 0.6);
-    box-shadow: 0 10px 30px -12px rgba(201, 162, 75, 0.6);
+    background-image: linear-gradient(135deg, #DEC894 0%, #BE9650 50%, #8E6A34 100%);
+    color: #09090A;
+    border: 1px solid rgba(239, 227, 195, 0.6);
+    box-shadow: 0 10px 30px -12px rgba(190, 150, 80, 0.6);
   }
   .btn-gold:hover {
-    background-image: linear-gradient(135deg, #2a1a12, #150c07);
-    color: #e8cd8c;
-    border-color: rgba(201, 162, 75, 0.7);
+    background-image: linear-gradient(135deg, #131316, #09090A);
+    color: #DEC894;
+    border-color: rgba(190, 150, 80, 0.7);
   }
 
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 font-body text-sm font-medium tracking-wide transition-all duration-300;
     background: transparent;
-    color: #e8cd8c;
-    border: 1px solid rgba(201, 162, 75, 0.55);
+    color: #DEC894;
+    border: 1px solid rgba(190, 150, 80, 0.55);
   }
   .btn-outline:hover {
-    background: rgba(201, 162, 75, 0.12);
-    border-color: rgba(201, 162, 75, 0.9);
+    background: rgba(190, 150, 80, 0.12);
+    border-color: rgba(190, 150, 80, 0.9);
   }
 
   .field {
     @apply w-full rounded-xl bg-chocolate-espresso/70 px-4 py-3 font-body text-ivory placeholder:text-ivory/30 transition-all duration-300 outline-none;
-    border: 1px solid rgba(201, 162, 75, 0.22);
+    border: 1px solid rgba(190, 150, 80, 0.22);
   }
   .field:focus {
-    border-color: rgba(201, 162, 75, 0.7);
-    box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.12);
+    border-color: rgba(190, 150, 80, 0.7);
+    box-shadow: 0 0 0 3px rgba(190, 150, 80, 0.12);
   }
 
   .glass-card {
-    background: linear-gradient(160deg, rgba(59, 38, 24, 0.55), rgba(21, 12, 7, 0.7));
-    border: 1px solid rgba(201, 162, 75, 0.28);
+    background: linear-gradient(160deg, rgba(26, 26, 29, 0.55), rgba(9, 9, 10, 0.7));
+    border: 1px solid rgba(190, 150, 80, 0.28);
     backdrop-filter: blur(8px);
   }
 }
@@ -106,7 +106,7 @@ select.field {
 }
 
 ::selection {
-  background: rgba(201, 162, 75, 0.3);
+  background: rgba(190, 150, 80, 0.3);
   color: #f7f1e3;
 }
 
@@ -115,9 +115,9 @@ select.field {
   width: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: #150c07;
+  background: #09090A;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#c9a24b, #a87e2e);
+  background: linear-gradient(#BE9650, #8E6A34);
   border-radius: 9px;
 }

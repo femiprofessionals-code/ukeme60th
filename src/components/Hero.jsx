@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { event, galleryImages } from '../lib/siteConfig'
 import Sparkles from './Sparkles'
+import CelebrationLayer from './CelebrationLayer'
+import BalloonCluster from './BalloonCluster'
 import CTAButtons from './CTAButtons'
 import CountdownTimer from './CountdownTimer'
 import DecorativeBorder from './DecorativeBorder'
@@ -22,11 +24,15 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-choco-radial px-5 pb-12 pt-28 sm:px-8">
       <Sparkles />
+      <CelebrationLayer density={1} />
       {/* soft gold radial glows */}
       <div className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-royal/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
 
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-14">
+      {/* professionally placed balloon accent, echoing the invitation */}
+      <BalloonCluster flip className="absolute -left-2 bottom-10 z-0 hidden w-24 opacity-55 sm:block sm:w-32" />
+
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-14">
         {/* Text column */}
         <div className="order-2 text-center md:order-1 md:text-left">
           <motion.p custom={0} variants={fade} initial="hidden" animate="show" className="eyebrow mb-5">
@@ -105,7 +111,7 @@ export default function Hero() {
         custom={5}
         initial="hidden"
         animate="show"
-        className="relative mt-14 w-full px-1"
+        className="relative z-10 mt-14 w-full px-1"
       >
         <div className="mx-auto max-w-2xl">
           <p className="mb-4 text-center eyebrow text-gold/70">Counting Down To The Celebration</p>
