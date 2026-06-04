@@ -8,7 +8,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import EventDetails from './pages/EventDetails'
 import WishesPrayers from './pages/WishesPrayers'
-import Gallery from './pages/Gallery'
+// import Gallery from './pages/Gallery' // hidden for now
 import RSVP from './pages/RSVP'
 
 function ScrollToTop() {
@@ -44,7 +44,8 @@ export default function App() {
           <Route path="/" element={<PageTransition><Home /></PageTransition>} />
           <Route path="/event-details" element={<PageTransition><EventDetails /></PageTransition>} />
           <Route path="/wishes-prayers" element={<PageTransition><WishesPrayers /></PageTransition>} />
-          <Route path="/gallery" element={<PageTransition><Gallery /></PageTransition>} />
+          {/* Gallery hidden for now; uncomment to restore */}
+          {/* <Route path="/gallery" element={<PageTransition><Gallery /></PageTransition>} /> */}
           <Route path="/rsvp" element={<PageTransition><RSVP /></PageTransition>} />
           <Route path="*" element={<PageTransition><Home /></PageTransition>} />
         </Routes>

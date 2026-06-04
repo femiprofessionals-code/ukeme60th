@@ -7,7 +7,7 @@ export const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/event-details', label: 'Event Details' },
   { to: '/wishes-prayers', label: 'Messages & Prayers' },
-  { to: '/gallery', label: 'Gallery' },
+  // { to: '/gallery', label: 'Gallery' }, // hidden for now; uncomment to restore
   { to: '/rsvp', label: 'RSVP' },
 ]
 
