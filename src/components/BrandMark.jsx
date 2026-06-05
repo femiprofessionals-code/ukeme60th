@@ -6,8 +6,9 @@ import { useId } from 'react'
 const GOLD = '#E2CC96'
 
 export default function BrandMark({ size = 56, className = '' }) {
-  const arcId = useId()
-  const goldId = useId()
+  // strip the colons React's useId emits; they can break SVG url() refs
+  const arcId = 'seal-arc-' + useId().replace(/:/g, '')
+  const goldId = 'seal-gold-' + useId().replace(/:/g, '')
 
   return (
     <span className={`inline-flex ${className}`}>
