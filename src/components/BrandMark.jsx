@@ -1,14 +1,17 @@
 import { useId } from 'react'
 
-// Header seal: "60th" centered with "UKEME FALADE" curved around the top of
-// the ring. Solid champagne gold and heavier weights so it stays bold and
-// legible at navbar size, on every page, including over the scrolled bar.
+// Header seal: "60th" centered with "UKEME FALADE" curved around the top.
+// All fills are SOLID colors. Browser bugs can drop SVG gradient paint inside
+// a fixed/transitioning navbar, so the metallic look on the "60th" is built
+// from two layered solid-gold texts (deep gold beneath, bright gold on top),
+// which cannot lose their paint while scrolling.
 const GOLD = '#E2CC96'
+const GOLD_BRIGHT = '#E8C874'
+const GOLD_DEEP = '#8E6A34'
 
 export default function BrandMark({ size = 56, className = '' }) {
-  // strip the colons React's useId emits; they can break SVG url() refs
+  // strip the colons React's useId emits; they can break SVG refs in Safari
   const arcId = 'seal-arc-' + useId().replace(/:/g, '')
-  const goldId = 'seal-gold-' + useId().replace(/:/g, '')
 
   return (
     <span className={`inline-flex ${className}`}>
@@ -20,12 +23,6 @@ export default function BrandMark({ size = 56, className = '' }) {
         aria-label="Ukeme Falade, 60th birthday"
       >
         <defs>
-          {/* metallic foil gradient for the 60th */}
-          <linearGradient id={goldId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#E8C874" />
-            <stop offset="0.5" stopColor="#C9A24B" />
-            <stop offset="1" stopColor="#B8860B" />
-          </linearGradient>
           {/* arc for the curved name across the top */}
           <path id={arcId} d="M 15.5 50 A 34.5 34.5 0 0 1 84.5 50" fill="none" />
         </defs>
@@ -47,12 +44,24 @@ export default function BrandMark({ size = 56, className = '' }) {
           </textPath>
         </text>
 
-        {/* center "60th" in metallic foil */}
+        {/* center "60th": deep-gold underlayer for metallic depth */}
+        <text
+          x="50.9"
+          y="64.9"
+          textAnchor="middle"
+          fill={GOLD_DEEP}
+          fontFamily="'Cormorant Garamond', Georgia, serif"
+          fontWeight="700"
+        >
+          <tspan fontSize="31">60</tspan>
+          <tspan fontSize="12.5" dy="-13">th</tspan>
+        </text>
+        {/* bright gold top layer */}
         <text
           x="50"
           y="64"
           textAnchor="middle"
-          fill={`url(#${goldId})`}
+          fill={GOLD_BRIGHT}
           fontFamily="'Cormorant Garamond', Georgia, serif"
           fontWeight="700"
         >
