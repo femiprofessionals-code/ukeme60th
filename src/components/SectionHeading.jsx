@@ -12,7 +12,7 @@ export default function SectionHeading({ eyebrow, title, subtitle, align = 'cent
       className={`flex flex-col ${alignment}`}
     >
       {eyebrow && <p className="eyebrow mb-4">{eyebrow}</p>}
-      <h2 className="display text-3xl font-medium leading-tight text-ivory sm:text-4xl md:text-5xl">
+      <h2 className="display text-3xl font-medium leading-tight text-foil sm:text-4xl md:text-5xl">
         {title}
       </h2>
       {subtitle && (

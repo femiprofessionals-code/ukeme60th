@@ -5,7 +5,7 @@ import Sparkles from '../components/Sparkles'
 
 export default function WishesPrayers() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-choco-radial px-5 pb-24 pt-32 sm:px-8">
+    <section className="marble relative min-h-screen overflow-hidden bg-choco-radial px-5 pb-24 pt-32 sm:px-8">
       <Sparkles className="opacity-50" />
       <div className="relative mx-auto max-w-2xl">
         <SectionHeading

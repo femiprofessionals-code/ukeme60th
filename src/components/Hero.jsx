@@ -22,7 +22,7 @@ export default function Hero() {
   const heroImg = galleryImages[0]
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-choco-radial px-5 pb-12 pt-28 sm:px-8">
+    <section className="marble relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-choco-radial px-5 pb-12 pt-28 sm:px-8">
       <Sparkles />
       <CelebrationLayer density={1} />
       {/* soft gold radial glows */}
@@ -44,7 +44,7 @@ export default function Hero() {
             variants={fade}
             initial="hidden"
             animate="show"
-            className="display text-4xl font-medium leading-[1.05] text-ivory sm:text-5xl lg:text-6xl"
+            className="display text-4xl font-medium leading-[1.12] text-ivory sm:text-5xl lg:text-6xl"
           >
             {event.honoree}'s
             <span className="block text-foil">60th Birthday Thanksgiving</span>

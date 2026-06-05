@@ -23,7 +23,7 @@ export default function Home() {
       <Hero />
 
       {/* About / Honoree */}
-      <section className="relative bg-chocolate px-5 py-20 sm:px-8 sm:py-28">
+      <section className="marble relative bg-chocolate px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto max-w-3xl">
           <SectionHeading eyebrow="Family & Gratitude" title="More Than a Birthday" />
           <motion.p
@@ -40,7 +40,7 @@ export default function Home() {
       </section>
 
       {/* Summary card */}
-      <section className="relative overflow-hidden bg-choco-radial px-5 py-20 sm:px-8 sm:py-24">
+      <section className="marble relative overflow-hidden bg-choco-radial px-5 py-20 sm:px-8 sm:py-24">
         <Sparkles className="opacity-60" />
         <div className="relative mx-auto max-w-3xl">
           <DecorativeBorder>
@@ -69,7 +69,7 @@ export default function Home() {
       </section>
 
       {/* Legacy line */}
-      <section className="bg-chocolate-deep px-5 py-20 sm:px-8 sm:py-28">
+      <section className="marble bg-chocolate-deep px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto max-w-3xl text-center">
           <motion.blockquote
             initial={{ opacity: 0, y: 24 }}

@@ -30,15 +30,18 @@ body {
     font-family: 'Cormorant Garamond', Georgia, serif;
   }
 
-  /* Foil-style gold text */
+  /* Foil-style gold text (metallic: #B8860B / #E8C874 / #C9A24B) */
   .text-foil {
-    background: linear-gradient(135deg, #EFE3C3 0%, #DEC894 30%, #BE9650 55%, #DEC894 80%, #8E6A34 100%);
+    background: linear-gradient(135deg, #B8860B 0%, #E8C874 28%, #C9A24B 50%, #E8C874 72%, #B8860B 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
     animation: shimmer 8s linear infinite;
+    /* keep descenders (g, y, p) inside the painted area */
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
   }
 
   .eyebrow {
@@ -58,26 +61,31 @@ body {
 
   .btn-gold {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 font-body text-sm font-medium tracking-wide transition-all duration-300;
-    background-image: linear-gradient(135deg, #DEC894 0%, #BE9650 50%, #8E6A34 100%);
+    background-image: linear-gradient(135deg, #B8860B 0%, #E8C874 42%, #C9A24B 68%, #B8860B 100%);
     color: #09090A;
-    border: 1px solid rgba(239, 227, 195, 0.6);
-    box-shadow: 0 10px 30px -12px rgba(190, 150, 80, 0.6);
+    border: 1px solid rgba(232, 200, 116, 0.65);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 30px -12px rgba(201, 162, 75, 0.55);
   }
   .btn-gold:hover {
     background-image: linear-gradient(135deg, #131316, #09090A);
-    color: #DEC894;
-    border-color: rgba(190, 150, 80, 0.7);
+    color: #E8C874;
+    border-color: rgba(201, 162, 75, 0.7);
+    box-shadow: 0 10px 30px -12px rgba(201, 162, 75, 0.35);
   }
 
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 font-body text-sm font-medium tracking-wide transition-all duration-300;
-    background: transparent;
-    color: #DEC894;
-    border: 1px solid rgba(190, 150, 80, 0.55);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(#121215, #121215) padding-box,
+      linear-gradient(135deg, #B8860B 0%, #E8C874 45%, #C9A24B 75%, #B8860B 100%) border-box;
+    color: #E8C874;
   }
   .btn-outline:hover {
-    background: rgba(190, 150, 80, 0.12);
-    border-color: rgba(190, 150, 80, 0.9);
+    background:
+      linear-gradient(rgba(201, 162, 75, 0.16), rgba(201, 162, 75, 0.16)) padding-box,
+      linear-gradient(135deg, #B8860B 0%, #E8C874 45%, #C9A24B 75%, #B8860B 100%) border-box;
+    color: #F0DFAE;
   }
 
   .field {
@@ -93,6 +101,19 @@ body {
     background: linear-gradient(160deg, rgba(26, 26, 29, 0.55), rgba(9, 9, 10, 0.7));
     border: 1px solid rgba(190, 150, 80, 0.28);
     backdrop-filter: blur(8px);
+  }
+
+  /* Black-marble veining, layered behind content. Add `marble` to a section. */
+  .marble {
+    position: relative;
+  }
+  .marble::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'%3E%3Cg%20fill='none'%20stroke-linecap='round'%3E%3Cpath%20d='M-40,120C120,60,220,210,380,170S620,120,660,160'%20stroke='%23C9A24B'%20stroke-opacity='.07'%20stroke-width='1.2'/%3E%3Cpath%20d='M240,-30C200,120,330,220,300,360S380,560,360,640'%20stroke='%23C9A24B'%20stroke-opacity='.06'%20stroke-width='1'/%3E%3Cpath%20d='M-30,420C140,380,200,480,360,450S560,380,650,430'%20stroke='%23B8860B'%20stroke-opacity='.08'%20stroke-width='1.4'/%3E%3Cpath%20d='M90,600C140,480,60,380,130,260S110,80,160,-20'%20stroke='%23C9A24B'%20stroke-opacity='.05'%20stroke-width='1'/%3E%3Cpath%20d='M380,170C420,230,400,280,450,330'%20stroke='%23E8C874'%20stroke-opacity='.1'%20stroke-width='.6'/%3E%3Cpath%20d='M300,360C260,400,270,450,230,480'%20stroke='%23E8C874'%20stroke-opacity='.09'%20stroke-width='.6'/%3E%3Cpath%20d='M520,40C480,140,560,240,520,340S570,540,540,620'%20stroke='%23C9A24B'%20stroke-opacity='.05'%20stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 620px 620px;
   }
 }
 

@@ -5,7 +5,7 @@ import GoldDivider from './GoldDivider'
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-gold/20 bg-chocolate-espresso px-5 pb-10 pt-14 sm:px-8">
+    <footer className="marble relative border-t border-gold/20 bg-chocolate-espresso px-5 pb-10 pt-14 sm:px-8">
       <div className="mx-auto max-w-5xl text-center">
         <p className="eyebrow mb-3">A Celebration of Grace</p>
         <h3 className="display text-3xl text-foil sm:text-4xl">{event.honoree}</h3>

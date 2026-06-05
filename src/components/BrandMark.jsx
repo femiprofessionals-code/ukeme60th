@@ -7,6 +7,7 @@ const GOLD = '#E2CC96'
 
 export default function BrandMark({ size = 56, className = '' }) {
   const arcId = useId()
+  const goldId = useId()
 
   return (
     <span className={`inline-flex ${className}`}>
@@ -18,6 +19,12 @@ export default function BrandMark({ size = 56, className = '' }) {
         aria-label="Ukeme Falade, 60th birthday"
       >
         <defs>
+          {/* metallic foil gradient for the 60th */}
+          <linearGradient id={goldId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#E8C874" />
+            <stop offset="0.5" stopColor="#C9A24B" />
+            <stop offset="1" stopColor="#B8860B" />
+          </linearGradient>
           {/* arc for the curved name across the top */}
           <path id={arcId} d="M 15.5 50 A 34.5 34.5 0 0 1 84.5 50" fill="none" />
         </defs>
@@ -39,12 +46,12 @@ export default function BrandMark({ size = 56, className = '' }) {
           </textPath>
         </text>
 
-        {/* center "60th" */}
+        {/* center "60th" in metallic foil */}
         <text
           x="50"
           y="64"
           textAnchor="middle"
-          fill={GOLD}
+          fill={`url(#${goldId})`}
           fontFamily="'Cormorant Garamond', Georgia, serif"
           fontWeight="700"
         >
