@@ -47,7 +47,7 @@ export default function Hero() {
             className="display text-4xl font-medium leading-[1.05] text-ivory sm:text-5xl lg:text-6xl"
           >
             {event.honoree}'s
-            <span className="block text-foil">60th Birthday</span>
+            <span className="block text-foil">60th Birthday Thanksgiving</span>
           </motion.h1>
 
           <motion.div

@@ -1,7 +1,13 @@
-// Header seal: a champagne-gold medallion with "60th" in the center and the
-// name "UKEME FALADE" curved around the top of the ring. Used in the navbar
-// and mobile menu.
-export default function BrandMark({ size = 50, className = '' }) {
+import { useId } from 'react'
+
+// Header seal: "60th" centered with "UKEME FALADE" curved around the top of
+// the ring. Solid champagne gold and heavier weights so it stays bold and
+// legible at navbar size, on every page, including over the scrolled bar.
+const GOLD = '#E2CC96'
+
+export default function BrandMark({ size = 56, className = '' }) {
+  const arcId = useId()
+
   return (
     <span className={`inline-flex ${className}`}>
       <svg
@@ -12,28 +18,23 @@ export default function BrandMark({ size = 50, className = '' }) {
         aria-label="Ukeme Falade, 60th birthday"
       >
         <defs>
-          <linearGradient id="bm-gold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#EFE3C3" />
-            <stop offset="0.5" stopColor="#BE9650" />
-            <stop offset="1" stopColor="#8E6A34" />
-          </linearGradient>
           {/* arc for the curved name across the top */}
-          <path id="bm-name-arc" d="M 17 50 A 33 33 0 0 1 83 50" fill="none" />
+          <path id={arcId} d="M 15.5 50 A 34.5 34.5 0 0 1 84.5 50" fill="none" />
         </defs>
 
         {/* outer + inner rings */}
-        <circle cx="50" cy="50" r="47" fill="none" stroke="url(#bm-gold)" strokeWidth="1.4" />
-        <circle cx="50" cy="50" r="41.5" fill="none" stroke="url(#bm-gold)" strokeWidth="0.6" opacity="0.5" />
+        <circle cx="50" cy="50" r="47" fill="none" stroke={GOLD} strokeWidth="2" />
+        <circle cx="50" cy="50" r="41.5" fill="none" stroke={GOLD} strokeWidth="0.8" opacity="0.6" />
 
         {/* curved name */}
         <text
-          fill="url(#bm-gold)"
+          fill={GOLD}
           fontFamily="'Cormorant Garamond', Georgia, serif"
-          fontSize="10.5"
-          fontWeight="600"
-          letterSpacing="1.6"
+          fontSize="11.5"
+          fontWeight="700"
+          letterSpacing="1.2"
         >
-          <textPath href="#bm-name-arc" startOffset="50%" textAnchor="middle">
+          <textPath href={`#${arcId}`} startOffset="50%" textAnchor="middle">
             UKEME FALADE
           </textPath>
         </text>
@@ -43,25 +44,25 @@ export default function BrandMark({ size = 50, className = '' }) {
           x="50"
           y="64"
           textAnchor="middle"
-          fill="url(#bm-gold)"
+          fill={GOLD}
           fontFamily="'Cormorant Garamond', Georgia, serif"
-          fontWeight="600"
+          fontWeight="700"
         >
-          <tspan fontSize="30">60</tspan>
-          <tspan fontSize="12" dy="-13">th</tspan>
+          <tspan fontSize="31">60</tspan>
+          <tspan fontSize="12.5" dy="-13">th</tspan>
         </text>
 
         {/* side star caps where the name arc ends */}
-        <g fill="url(#bm-gold)">
+        <g fill={GOLD}>
           <path d="M14 50l1-2.4 1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1z" />
           <path d="M86 50l1-2.4 1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1z" />
         </g>
 
         {/* bottom flourish */}
-        <g fill="url(#bm-gold)">
-          <circle cx="44" cy="80" r="1.1" />
-          <path d="M50 76.5l1.1 2.6 2.6 1.1-2.6 1.1-1.1 2.6-1.1-2.6-2.6-1.1 2.6-1.1z" />
-          <circle cx="56" cy="80" r="1.1" />
+        <g fill={GOLD}>
+          <circle cx="44" cy="80" r="1.2" />
+          <path d="M50 76.2l1.2 2.7 2.7 1.2-2.7 1.2-1.2 2.7-1.2-2.7-2.7-1.2 2.7-1.2z" />
+          <circle cx="56" cy="80" r="1.2" />
         </g>
       </svg>
     </span>
