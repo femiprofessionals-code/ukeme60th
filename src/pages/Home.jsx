@@ -7,11 +7,12 @@ import CTAButtons from '../components/CTAButtons'
 import DecorativeBorder from '../components/DecorativeBorder'
 import Sparkles from '../components/Sparkles'
 
-function SummaryItem({ label, value }) {
+function SummaryItem({ label, value, sub, className = '' }) {
   return (
-    <div className="text-center">
+    <div className={`text-center ${className}`}>
       <p className="eyebrow mb-1 text-gold/75">{label}</p>
       <p className="display text-lg text-ivory sm:text-xl">{value}</p>
+      {sub && <p className="mt-1 font-body text-sm text-ivory/60">{sub}</p>}
     </div>
   )
 }
@@ -48,8 +49,12 @@ export default function Home() {
               <div className="grid gap-8 sm:grid-cols-2">
                 <SummaryItem label="Date" value={event.dateLabel} />
                 <SummaryItem label="Time" value={event.timeLabel} />
-                <SummaryItem label="Venue" value={event.venue} />
-                <SummaryItem label="Location" value={event.addressLine} />
+                <SummaryItem
+                  label="Venue"
+                  value={event.venue}
+                  sub={event.addressLine}
+                  className="sm:col-span-2"
+                />
               </div>
               <GoldDivider className="my-9" />
               <CTAButtons
