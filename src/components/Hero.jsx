@@ -46,7 +46,7 @@ export default function Hero() {
             animate="show"
             className="display text-4xl font-medium leading-[1.12] text-ivory sm:text-5xl lg:text-6xl"
           >
-            {event.honoree}'s
+            {event.honoree.split(' ')[0]}'s
             <span className="block text-foil">60th Birthday Thanksgiving</span>
           </motion.h1>
 
