@@ -3,10 +3,10 @@
 //
 // RELIABILITY: zero SVG references (no defs/gradients/textPath/ids). Every
 // element is self-contained solid paint, so nothing can fade while scrolling.
-const GOLD = '#EFD8A0'
-const GOLD_BRIGHT = '#F4DFA8'
-const GOLD_DEEP = '#8E6A34'
-const DISC = '#0E0D0B'
+const GOLD = '#F2DCA4'
+const GOLD_BRIGHT = '#F7E3AC'
+const GOLD_DEEP = '#9A7335'
+const DISC = '#0C0B09'
 
 const NAME = 'UKEME FALADE'
 const RADIUS = 33.5
@@ -18,7 +18,7 @@ const LETTERS = NAME.split('').map((ch, i) => {
   return { ch, a, x: 50 + RADIUS * Math.sin(rad), y: 50 - RADIUS * Math.cos(rad) }
 })
 
-export default function BrandMark({ size = 64, className = '' }) {
+export default function BrandMark({ size = 68, className = '' }) {
   return (
     <span className={`inline-flex ${className}`}>
       <svg
@@ -27,9 +27,10 @@ export default function BrandMark({ size = 64, className = '' }) {
         viewBox="0 0 100 100"
         role="img"
         aria-label="Ukeme Falade, 60th birthday"
+        style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.6))' }}
       >
         {/* solid badge disc + bold outer ring */}
-        <circle cx="50" cy="50" r="47" fill={DISC} stroke={GOLD} strokeWidth="3" />
+        <circle cx="50" cy="50" r="47" fill={DISC} stroke={GOLD} strokeWidth="3.4" />
         {/* inner ring enclosing the 60th */}
         <circle cx="50" cy="50" r="26.5" fill="none" stroke={GOLD} strokeWidth="1" opacity="0.75" />
 

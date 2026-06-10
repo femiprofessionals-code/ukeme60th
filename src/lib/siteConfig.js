@@ -11,7 +11,7 @@ export const event = {
   milestone: 60,
 
   dateLabel: 'Sunday, September 27, 2026',
-  timeLabel: '10:00 AM ET – 1:00 PM ET',
+  timeLabel: '10:00 AM ET',
 
   venue: 'RCCG Word of Life Center',
   addressLine: '11313 Lockwood Dr, Silver Spring, MD 20904',
