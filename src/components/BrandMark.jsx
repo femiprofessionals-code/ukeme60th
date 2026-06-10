@@ -18,7 +18,7 @@ const LETTERS = NAME.split('').map((ch, i) => {
   return { ch, a, x: 50 + RADIUS * Math.sin(rad), y: 50 - RADIUS * Math.cos(rad) }
 })
 
-export default function BrandMark({ size = 68, className = '' }) {
+export default function BrandMark({ size = 72, className = '' }) {
   return (
     <span className={`inline-flex ${className}`}>
       <svg

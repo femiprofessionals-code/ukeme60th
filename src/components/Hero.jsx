@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { event, galleryImages } from '../lib/siteConfig'
+import { event, heroImage } from '../lib/siteConfig'
 import Sparkles from './Sparkles'
 import CelebrationLayer from './CelebrationLayer'
 import BalloonCluster from './BalloonCluster'
@@ -19,7 +19,7 @@ const fade = {
 
 export default function Hero() {
   // Lead with the invitation image; fall back to first portrait.
-  const heroImg = galleryImages[0]
+  const heroImg = heroImage
 
   return (
     <section className="marble relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-choco-radial px-5 pb-12 pt-28 sm:px-8">

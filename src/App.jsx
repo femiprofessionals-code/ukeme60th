@@ -44,8 +44,8 @@ export default function App() {
           <Route path="/" element={<PageTransition><Home /></PageTransition>} />
           <Route path="/event-details" element={<PageTransition><EventDetails /></PageTransition>} />
           <Route path="/wishes-prayers" element={<PageTransition><WishesPrayers /></PageTransition>} />
-          {/* Gallery hidden for now; uncomment to restore */}
-          {/* <Route path="/gallery" element={<PageTransition><Gallery /></PageTransition>} /> */}
+          
+          {/* <Route path="/gallery" element={<PageTransition><Gallery /></PageTransition>} /> hidden for now */}
           <Route path="/rsvp" element={<PageTransition><RSVP /></PageTransition>} />
           <Route path="*" element={<PageTransition><Home /></PageTransition>} />
         </Routes>

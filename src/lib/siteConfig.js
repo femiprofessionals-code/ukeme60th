@@ -36,6 +36,12 @@ export const MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=' +
   encodeURIComponent('RCCG Word of Life Center, 11313 Lockwood Dr, Silver Spring, MD 20904')
 
+// Hero image: the invitation card. Save the invite as /public/images/invite.jpg.
+export const heroImage = {
+  src: '/images/invite.jpg',
+  alt: 'Ukeme Falade 60th birthday invitation',
+}
+
 // ---------------------------------------------------------------------------
 //  Gallery. A single featured portrait (the black-dress photo). This same
 //  image is used on the home hero. To swap it, change the one src below and
