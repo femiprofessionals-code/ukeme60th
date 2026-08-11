@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import Sparkles from './Sparkles'
+import DecorativeBorder from './DecorativeBorder'
+import GoldDivider from './GoldDivider'
 
 /**
  * A passphrase gate for the travel page.
@@ -75,18 +78,21 @@ export default function PasswordGate({ children }) {
   if (unlocked) return children
 
   return (
-    <section className="mx-auto flex min-h-[78vh] max-w-xl flex-col justify-center px-5 pb-24 pt-32 sm:px-8">
+    <section className="marble relative flex min-h-[86vh] items-center overflow-hidden bg-choco-radial px-5 pb-24 pt-32 sm:px-8">
+      <Sparkles className="opacity-60" />
+      <div className="relative mx-auto w-full max-w-xl">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="rounded-2xl border border-gold/20 bg-chocolate-card/70 px-6 py-10 shadow-card sm:px-10"
       >
+        <DecorativeBorder>
+          <div className="glass-card rounded-2xl px-6 py-10 shadow-card sm:px-10">
         <p className="eyebrow text-center">Private</p>
         <h1 className="display mt-4 text-center text-4xl leading-none text-ivory sm:text-5xl">
           The Travel Itinerary
         </h1>
-        <div className="rule-gold mx-auto mt-6 w-24" />
+        <GoldDivider className="mt-6" />
         <p className="mx-auto mt-6 max-w-sm text-center text-sm leading-relaxed text-ivory/70">
           This page holds flights, hotels and dates for the family trip. Enter the passphrase
           shared with you to open it.
@@ -127,7 +133,10 @@ export default function PasswordGate({ children }) {
         <p className="mt-8 text-center text-xs leading-relaxed text-ivory/45">
           Trouble getting in? Ask whoever shared the link — the passphrase is case sensitive.
         </p>
+          </div>
+        </DecorativeBorder>
       </motion.div>
+      </div>
     </section>
   )
 }

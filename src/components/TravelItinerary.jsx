@@ -1,6 +1,30 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { LEGS, GROUPS, NOTES, TRIP } from '../lib/travelData'
+import Sparkles from './Sparkles'
+import SectionHeading from './SectionHeading'
+import GoldDivider from './GoldDivider'
+import DecorativeBorder from './DecorativeBorder'
+
+/* The site's shared reveal: same offset, duration and easing as SectionHeading
+   and the Home page paragraphs, so /travel scrolls like every other page. */
+const REVEAL = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+}
+function Reveal({ children, delay = 0, className = '' }) {
+  return (
+    <motion.div
+      {...REVEAL}
+      transition={{ ...REVEAL.transition, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 /* Drawn marks rather than emoji, so every device renders the same icon. */
 function Sprite() {
@@ -176,7 +200,7 @@ function LegCard({ leg, onGo }) {
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-2xl border border-gold/15 bg-chocolate-card/70 p-6 shadow-card sm:p-8"
+      className="glass-card rounded-2xl p-6 shadow-card sm:p-8"
     >
       <div className="flex items-start justify-between gap-4">
         <span className="tv-glyph">
@@ -298,37 +322,56 @@ export default function TravelItinerary() {
     <>
       <Sprite />
 
-      <section className="mx-auto max-w-6xl px-5 pb-6 pt-28 text-center sm:px-8 sm:pt-32">
-        <p className="eyebrow">{TRIP.span}</p>
-        <h1 className="display mt-4 text-5xl leading-[0.95] sm:text-7xl">
-          <span className="text-foil">The Travel Itinerary</span>
-        </h1>
-        <div className="mt-5 flex items-center justify-center gap-3">
-          <span className="rule-gold w-10 sm:w-16" />
-          <span className="eyebrow !tracking-[0.28em] whitespace-nowrap">{TRIP.kicker}</span>
-          <span className="rule-gold w-10 sm:w-16" />
-        </div>
-        <p className="display mx-auto mt-6 max-w-2xl text-xl italic leading-relaxed text-ivory/85 sm:text-2xl">
-          {TRIP.lede}
-        </p>
-        <p className="mt-5 font-body text-xs uppercase tracking-[0.26em] text-gold">{TRIP.note}</p>
+      <section className="marble relative overflow-hidden bg-choco-radial px-5 pb-10 pt-28 text-center sm:px-8 sm:pt-32">
+        <Sparkles className="opacity-60" />
+        <div className="relative mx-auto max-w-6xl">
+          <motion.p {...REVEAL} className="eyebrow">{TRIP.span}</motion.p>
+          <motion.h1
+            {...REVEAL}
+            transition={{ ...REVEAL.transition, delay: 0.08 }}
+            className="display mt-4 text-5xl leading-[0.95] sm:text-7xl"
+          >
+            <span className="text-foil">The Travel Itinerary</span>
+          </motion.h1>
 
-        <div ref={statsRef} className="mx-auto mt-10 grid max-w-2xl grid-cols-4 border-y border-gold/15">
-          {TRIP.stats.map((s) => (
-            <div key={s.label} className="relative px-1 py-4">
-              <b className="display block text-3xl leading-none text-gold-light sm:text-4xl">
-                <Counter to={s.n} run={counted} />
-              </b>
-              <i className="mt-2 block font-body text-[0.6rem] not-italic uppercase tracking-[0.2em] text-ivory/55">
-                {s.label}
-              </i>
-            </div>
-          ))}
+          <Reveal delay={0.16}><GoldDivider className="mt-6" /></Reveal>
+
+          <Reveal delay={0.22}>
+            <p className="mt-6 font-body text-xs uppercase tracking-[0.28em] text-gold/85">{TRIP.kicker}</p>
+          </Reveal>
+
+          <Reveal delay={0.28}>
+            <p className="display mx-auto mt-6 max-w-2xl text-xl italic leading-relaxed text-ivory/85 sm:text-2xl">
+              {TRIP.lede}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.34}>
+            <p className="mt-5 font-body text-xs uppercase tracking-[0.26em] text-gold">{TRIP.note}</p>
+          </Reveal>
+
+          <Reveal delay={0.4} className="mx-auto mt-12 max-w-2xl">
+            <DecorativeBorder>
+              <div ref={statsRef} className="glass-card grid grid-cols-4 rounded-2xl px-2 py-7">
+                {TRIP.stats.map((s2) => (
+                  <div key={s2.label} className="px-1 text-center">
+                    <b className="display block text-3xl leading-none text-gold-light sm:text-4xl">
+                      <Counter to={s2.n} run={counted} />
+                    </b>
+                    <i className="mt-2 block font-body text-[0.6rem] not-italic uppercase tracking-[0.2em] text-ivory/60">
+                      {s2.label}
+                    </i>
+                  </div>
+                ))}
+              </div>
+            </DecorativeBorder>
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-24 sm:px-8 lg:grid-cols-[minmax(320px,390px)_1fr] lg:items-start lg:gap-12">
-        <div className="min-w-0 lg:sticky lg:top-24">
+      <section className="marble relative bg-chocolate px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(320px,390px)_1fr] lg:items-start lg:gap-12">
+        <Reveal className="min-w-0 lg:sticky lg:top-24">
           <Chart current={current} onPick={go} />
           <p className="mt-3 text-center font-body text-[0.62rem] uppercase tracking-[0.28em] text-ivory/50">
             Tap a city to open the leg
@@ -358,27 +401,32 @@ export default function TravelItinerary() {
               </button>
             ))}
           </div>
-        </div>
+        </Reveal>
 
         <div ref={stageRef} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="min-w-0 scroll-mt-24">
           <LegCard leg={leg} onGo={go} />
         </div>
+        </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
-        <div className="text-center">
-          <p className="eyebrow">Before you go</p>
-          <h2 className="display mt-3 text-4xl italic leading-none text-ivory sm:text-5xl">Travel notes</h2>
-        </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {NOTES.map((n) => (
-            <div key={n.h} className="rounded-xl border border-gold/15 bg-chocolate-card/50 px-5 py-5">
-              <h3 className="eyebrow !text-[0.6rem]">{n.h}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-ivory/72">{n.p}</p>
-            </div>
-          ))}
+      <section className="marble relative overflow-hidden bg-choco-radial px-5 py-20 sm:px-8 sm:py-24">
+        <Sparkles className="opacity-50" />
+        <div className="relative mx-auto max-w-4xl">
+          <SectionHeading eyebrow="Before you go" title="Travel Notes" />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {NOTES.map((n, i) => (
+              <Reveal key={n.h} delay={i * 0.08}>
+                <div className="glass-card h-full rounded-xl px-5 py-5">
+                  <h3 className="eyebrow !text-[0.6rem]">{n.h}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ivory/75">{n.p}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <GoldDivider className="mt-12" />
         </div>
       </section>
+
     </>
   )
 }
