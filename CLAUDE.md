@@ -1,0 +1,129 @@
+# ukemeturns60.com — working notes
+
+A one-page-per-route site for Ukeme Falade's 60th. Read this before changing
+anything; it records the conventions the site already follows and the things
+that live outside this repo.
+
+## What it is
+
+Vite + React 18 + React Router 6 + Tailwind + Framer Motion. No backend — form
+submissions POST to a Google Apps Script Web App that writes to a Google Sheet.
+
+```
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # -> dist/
+```
+
+## Routes
+
+| Path | Page | Notes |
+| --- | --- | --- |
+| `/` | `Home` | Hero, invitation summary, legacy quote |
+| `/event-details` | `EventDetails` | |
+| `/wishes-prayers` | `WishesPrayers` | Form + message wall |
+| `/rsvp` | `RSVP` | Form |
+| `/travel` | `Travel` | **Passphrase-gated** itinerary |
+| `/gallery` | `Gallery` | Route commented out in `App.jsx`; component still present |
+
+Routes are registered in `src/App.jsx`. The nav is driven by the single
+exported `NAV_LINKS` array in `src/components/Navbar.jsx` — add a link there
+once and it appears in both the desktop bar and the mobile menu.
+
+## Where the content lives
+
+**All event content is in `src/lib/siteConfig.js`** — honoree, date, venue,
+calendar strings, gallery images, the sample messages wall. Change it there,
+not in components.
+
+**The travel itinerary is in `src/lib/travelData.js`** — legs, days, flights,
+hotels, notes. Same idea: edit the data, not the markup.
+
+## Design system
+
+Do not introduce new colours or faces. Everything comes from
+`tailwind.config.js` and the `@layer components` block in `src/index.css`:
+
+- **Ground** — black marble: `chocolate` `#131316`, `chocolate-deep` `#0E0E10`,
+  `chocolate-espresso` `#09090A`, `chocolate-card` `#161618`
+- **Gold** — `gold` `#BE9650`, `gold-light` `#DEC894`, `gold-pale` `#EFE3C3`,
+  `gold-deep` `#8E6A34`; `ivory` `#F3EAD6`
+- **Type** — `display` = Cormorant Garamond (use the `.display` class),
+  body = Jost
+- **Utilities** — `.text-foil` (shimmering gold text), `.eyebrow`,
+  `.rule-gold`, `.glass-card`, `.marble` (veined section background),
+  `bg-choco-radial`, `bg-gold-gradient`
+
+**Shared furniture — reuse these rather than rolling your own:**
+`SectionHeading`, `GoldDivider`, `DecorativeBorder`, `Sparkles`,
+`CelebrationLayer`, `CTAButtons`, `ImageFrame`, `BrandMark`.
+
+**The house reveal.** Sections animate in with framer-motion using these exact
+values (see `SectionHeading.jsx`). Match them for anything new:
+
+```js
+initial={{ opacity: 0, y: 24 }}
+whileInView={{ opacity: 1, y: 0 }}
+viewport={{ once: true, margin: '-60px' }}
+transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+```
+
+## The travel page
+
+| File | Purpose |
+| --- | --- |
+| `src/lib/travelData.js` | The itinerary. Edit here. |
+| `src/components/TravelItinerary.jsx` | Route chart, leg cards, day timeline |
+| `src/components/PasswordGate.jsx` | The gate |
+| `src/pages/Travel.jsx` | Route entry; lazily imports the itinerary |
+
+Its custom CSS sits at the end of `src/index.css`, every selector prefixed
+`tv-` so it cannot collide with the rest of the site. Keep that prefix.
+
+The gate stores only a **SHA-256 digest** of the passphrase, and the itinerary
+is lazily imported so its chunk is never downloaded until the gate opens. To
+change the passphrase, replace `DIGEST` in `PasswordGate.jsx`:
+
+```bash
+printf '%s' 'new-passphrase' | shasum -a 256
+```
+
+This is a deterrent, not security — the site is a static bundle with no server.
+Anyone who reads the JavaScript can reach the chunk. For real protection, use
+the host's built-in password feature.
+
+## Deployment
+
+Pushes to `main` build automatically on the host. `vercel.json` and
+`public/_redirects` provide the SPA fallback — **do not remove them**, or every
+deep link (`/rsvp`, `/travel`) will 404 on refresh.
+
+## Things that are NOT in this repo
+
+Anyone picking this up needs to know these exist elsewhere:
+
+1. **`VITE_GOOGLE_SCRIPT_URL`** — the Apps Script endpoint the forms POST to.
+   Must be set as an environment variable in the host dashboard. There is no
+   `.env` in the repo (and `.env` is gitignored).
+2. **The Google Apps Script itself** — `google-apps-script.gs` is a copy of the
+   source, but the deployed Web App and the Google Sheet behind it live in the
+   owner's Google account. Editing the `.gs` here changes nothing until it is
+   redeployed there (see README).
+3. **Host configuration** — which branch is production, the custom domain, and
+   any dashboard-level settings.
+
+## Open questions on the itinerary
+
+Both are one-line edits in `src/lib/travelData.js`:
+
+- **Bali has no hotel.** The source PDF says "Accommodation to be confirmed",
+  so the page says the same. It is the only stay without one.
+- **Guangzhou vs Hong Kong.** The PDF says "transfer to Hong Kong" on Aug 27
+  but also places the party at the Rosewood Guangzhou on the 28th and 29th,
+  departing HKG at 12:45 AM on the 30th. The page reads that as three nights in
+  Guangzhou with the ground transfer on departure day. Worth confirming.
+
+Note the trip (14–30 Aug 2026) is separate from the celebration itself, which
+`siteConfig.js` gives as Sunday 27 September 2026. No birthday is marked inside
+the itinerary; 23 August is highlighted because it is the day both travelling
+groups meet in Bali.
