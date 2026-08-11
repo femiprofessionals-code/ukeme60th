@@ -178,3 +178,36 @@ ukeme-60th/
 - **Apps Script + CORS:** Apps Script web apps don't send CORS headers, so the forms post as `text/plain` (no preflight) and treat a completed request as success. Data still writes correctly to the sheet.
 
 With hearts full of gratitude. 🤍
+
+## Travel itinerary (`/travel`)
+
+A private page holding the seventeen-day trip: 14–30 August 2026, Washington to
+Jakarta, Surabaya, Sydney, Bali and Guangzhou, home via Hong Kong and Seoul.
+
+| File | Purpose |
+| --- | --- |
+| `src/lib/travelData.js` | **Edit the itinerary here.** Legs, days, flights, hotels, notes. |
+| `src/components/TravelItinerary.jsx` | The page body: route chart, leg cards, timeline. |
+| `src/components/PasswordGate.jsx` | The passphrase gate. |
+| `src/pages/Travel.jsx` | Route entry; lazily loads the itinerary once unlocked. |
+
+Styles live at the end of `src/index.css`, all prefixed `tv-` so they cannot
+collide with the rest of the site.
+
+### About the passphrase
+
+The gate stores only a **SHA-256 digest** of the passphrase, so the phrase itself
+is never in the JavaScript bundle. The itinerary is a lazily-imported chunk, so
+its content is not downloaded at all until the gate opens.
+
+To change the passphrase, replace `DIGEST` in `PasswordGate.jsx` with a new hash:
+
+```bash
+printf '%s' 'your-new-passphrase' | shasum -a 256
+```
+
+**This is a deterrent, not security.** The site is a static bundle with no server,
+so a determined visitor who reads the JavaScript can reach the chunk directly. It
+keeps the page away from casual visitors and search engines. If the details are
+genuinely sensitive, use real server-side auth or your host's built-in password
+protection (Netlify and Vercel both offer it on paid plans).

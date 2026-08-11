@@ -10,6 +10,7 @@ import EventDetails from './pages/EventDetails'
 import WishesPrayers from './pages/WishesPrayers'
 // import Gallery from './pages/Gallery' // hidden for now
 import RSVP from './pages/RSVP'
+import Travel from './pages/Travel'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -47,6 +48,7 @@ export default function App() {
           
           {/* <Route path="/gallery" element={<PageTransition><Gallery /></PageTransition>} /> hidden for now */}
           <Route path="/rsvp" element={<PageTransition><RSVP /></PageTransition>} />
+          <Route path="/travel" element={<PageTransition><Travel /></PageTransition>} />
           <Route path="*" element={<PageTransition><Home /></PageTransition>} />
         </Routes>
       </AnimatePresence>

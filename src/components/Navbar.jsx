@@ -9,6 +9,7 @@ export const NAV_LINKS = [
   { to: '/wishes-prayers', label: 'Messages & Prayers' },
   // { to: '/gallery', label: 'Gallery' }, // hidden for now; uncomment to restore
   { to: '/rsvp', label: 'RSVP' },
+  { to: '/travel', label: 'Travel' },
 ]
 
 export default function Navbar() {

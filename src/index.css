@@ -142,3 +142,144 @@ select.field {
   background: linear-gradient(#BE9650, #8E6A34);
   border-radius: 9px;
 }
+
+/* ===========================================================================
+   Travel itinerary (/travel). All selectors are prefixed `tv-` so nothing
+   here can collide with the rest of the site's styles.
+   =========================================================================== */
+
+.tv-chart {
+  background:
+    radial-gradient(70% 52% at 50% 42%, rgba(90, 66, 32, 0.38), transparent 76%),
+    linear-gradient(158deg, #17171A, #0B0B0D 82%);
+}
+.tv-chart svg { display: block; width: 100%; height: auto; }
+
+.tv-guilloche { fill: none; stroke: #DEC894; stroke-width: 0.5; opacity: 0.10; }
+.tv-bezel     { fill: none; stroke: rgba(222,200,148,.30); stroke-width: 1; stroke-dasharray: 1.1 9.2; stroke-linecap: round; }
+.tv-bezel-in  { fill: none; stroke: rgba(222,200,148,.13); stroke-width: 0.7; }
+.tv-orbit     { fill: none; stroke: rgba(243,234,214,.40); stroke-width: 1.25; }
+.tv-second    { fill: none; stroke: rgba(243,234,214,.42); stroke-width: 1.2; stroke-dasharray: 2.5 4.6; }
+
+.tv-progress {
+  fill: none; stroke: #BE9650; stroke-width: 2.4; stroke-linecap: round;
+  transition: stroke-dasharray .9s cubic-bezier(.22,.61,.36,1);
+}
+
+.tv-tick       { fill: #0E0E10; stroke: rgba(243,234,214,.45); stroke-width: 1.1; }
+.tv-tick-label { font-family: 'Jost', sans-serif; font-size: 9.2px; letter-spacing: .12em; fill: rgba(243,234,214,.62); }
+.tv-chart-label{ font-family: 'Jost', sans-serif; font-size: 8.6px; letter-spacing: .26em; fill: rgba(243,234,214,.55); }
+.tv-key        { stroke: rgba(243,234,214,.5); stroke-width: 1.3; stroke-linecap: round; }
+.tv-key-d      { stroke-dasharray: 2.5 4.6; }
+
+.tv-home       { fill: #F3EAD6; }
+.tv-home-ring  { fill: none; stroke: rgba(243,234,214,.34); stroke-width: 1; }
+.tv-home-label { fill: rgba(243,234,214,.9) !important; }
+
+.tv-node { cursor: pointer; }
+.tv-node:focus { outline: none; }
+.tv-node:focus-visible .tv-node-disc { stroke: #F3EAD6; stroke-width: 2.6; }
+.tv-node-glow { opacity: 0; transition: opacity .6s cubic-bezier(.22,.61,.36,1); }
+.tv-node-disc {
+  fill: #131316; stroke: #BE9650; stroke-width: 1.35;
+  transition: fill .45s cubic-bezier(.22,.61,.36,1), stroke .45s cubic-bezier(.22,.61,.36,1);
+}
+.tv-node-num   { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; fill: #DEC894; transition: fill .45s; }
+.tv-node-label { font-family: 'Jost', sans-serif; font-size: 11.6px; font-weight: 500; fill: rgba(243,234,214,.72); transition: fill .45s; }
+.tv-node:hover .tv-node-label { fill: rgba(243,234,214,.95); }
+.tv-node.is-on .tv-node-disc  { fill: #BE9650; stroke: #EFE3C3; }
+.tv-node.is-on .tv-node-num   { fill: #0E0E10; }
+.tv-node.is-on .tv-node-label { fill: #EFE3C3; }
+.tv-node.is-on .tv-node-glow  { opacity: 1; }
+
+/* leg pills */
+.tv-rail { scrollbar-width: none; }
+.tv-rail::-webkit-scrollbar { display: none; }
+.tv-pill {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: .5rem;
+  padding: .5rem .95rem .5rem .5rem; border-radius: 999px;
+  border: 1px solid rgba(190,150,80,.28); background: rgba(22,22,24,.6);
+  color: rgba(243,234,214,.82);
+  font-family: 'Jost', sans-serif; font-size: .84rem; font-weight: 500; white-space: nowrap;
+  transition: background .35s, color .35s, border-color .35s, transform .3s;
+}
+.tv-pill:hover { border-color: rgba(190,150,80,.6); transform: translateY(-1px); }
+.tv-pill:active { transform: scale(.97); }
+.tv-pill:focus-visible { outline: 2px solid #BE9650; outline-offset: 2px; }
+.tv-pill-n {
+  width: 21px; height: 21px; display: grid; place-items: center; border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(190,150,80,.45) inset; color: #DEC894;
+  font-size: .68rem; font-weight: 600;
+}
+.tv-pill.is-on { background: linear-gradient(135deg,#EFE3C3,#BE9650); border-color: #EFE3C3; color: #0E0E10; }
+.tv-pill.is-on .tv-pill-n { background: #0E0E10; color: #EFE3C3; box-shadow: none; }
+
+/* leg header */
+.tv-glyph {
+  width: 42px; height: 42px; flex: none; display: grid; place-items: center; border-radius: 12px;
+  background: linear-gradient(160deg, rgba(222,200,148,.22), rgba(190,150,80,.07));
+  box-shadow: 0 0 0 1px rgba(190,150,80,.32) inset;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; line-height: 1; color: #DEC894;
+}
+.tv-glyph svg { stroke: #DEC894; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.tv-span   { font-family: 'Jost', sans-serif; font-size: .72rem; letter-spacing: .08em; color: rgba(243,234,214,.66); white-space: nowrap; }
+.tv-nights { display: inline-block; padding: .28rem .7rem; border-radius: 999px; background: linear-gradient(135deg,#EFE3C3,#BE9650); color: #0E0E10; font-family: 'Jost', sans-serif; font-size: .66rem; letter-spacing: .04em; }
+
+.tv-stay { background: rgba(9,9,10,.55); box-shadow: 0 0 0 1px rgba(190,150,80,.16) inset; }
+.tv-k    { font-family: 'Jost', sans-serif; font-size: .58rem; letter-spacing: .24em; text-transform: uppercase; color: #DEC894; }
+.tv-val  { margin-top: .2rem; font-family: 'Jost', sans-serif; font-size: .78rem; color: rgba(243,234,214,.92); }
+
+/* day timeline */
+.tv-day { position: relative; }
+.tv-day.is-last { padding-bottom: .25rem; }
+.tv-day:not(.is-last)::before {
+  content: ""; position: absolute; left: 16.5px; top: 38px; bottom: 4px; width: 1px;
+  background: linear-gradient(180deg, rgba(190,150,80,.42), rgba(190,150,80,.10));
+}
+.tv-mark {
+  grid-row: 1 / span 3; width: 34px; height: 34px; display: grid; place-items: center;
+  border-radius: 50%; background: #17171A; box-shadow: 0 0 0 1px rgba(190,150,80,.35);
+  position: relative; z-index: 1;
+}
+.tv-mark svg { stroke: #DEC894; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tv-when   { font-family: 'Jost', sans-serif; font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(243,234,214,.6); padding-top: .3rem; }
+.tv-when b { font-weight: 600; color: #DEC894; }
+.tv-what   { margin-top: .3rem; font-family: 'Jost', sans-serif; font-size: 1.02rem; font-weight: 600; line-height: 1.25; color: #F3EAD6; }
+.tv-detail { margin: .35rem 0 0; font-size: .86rem; line-height: 1.55; color: rgba(243,234,214,.72); }
+.tv-chip   { padding: .18rem .5rem; border-radius: 4px; background: rgba(190,150,80,.14); color: #DEC894; font-family: 'Jost', sans-serif; font-size: .56rem; letter-spacing: .16em; text-transform: uppercase; }
+
+.tv-day.is-star .tv-mark { background: linear-gradient(160deg,#EFE3C3,#BE9650); box-shadow: 0 0 0 1px rgba(239,227,195,.6), 0 0 18px -2px rgba(190,150,80,.8); }
+.tv-day.is-star .tv-mark svg { stroke: #0E0E10; }
+.tv-day.is-star .tv-what { color: #EFE3C3; }
+
+/* flight strip */
+.tv-flight { background: rgba(9,9,10,.5); box-shadow: 0 0 0 1px rgba(190,150,80,.14) inset; }
+.tv-code   { font-family: 'Jost', sans-serif; font-size: .95rem; font-weight: 600; letter-spacing: .06em; color: #F3EAD6; line-height: 1; }
+.tv-time   { margin-top: .3rem; font-family: 'Jost', sans-serif; font-size: .74rem; color: rgba(243,234,214,.75); white-space: nowrap; }
+.tv-city   { margin-top: .2rem; font-size: .68rem; color: rgba(243,234,214,.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tv-dur    { font-family: 'Jost', sans-serif; font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: #DEC894; white-space: nowrap; }
+.tv-fnote  { font-family: 'Jost', sans-serif; font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(243,234,214,.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tv-rule   { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(190,150,80,.5), transparent); }
+.tv-track-icon { width: 13px; height: 13px; flex: none; stroke: #DEC894; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transform: rotate(90deg); }
+
+/* previous / next */
+.tv-lnav {
+  display: flex; align-items: center; gap: .6rem; padding: .7rem .85rem; border-radius: .7rem;
+  background: rgba(9,9,10,.5); box-shadow: 0 0 0 1px rgba(190,150,80,.16) inset;
+  text-align: left; transition: background .3s, transform .3s;
+}
+.tv-lnav svg { stroke: #DEC894; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tv-lnav:hover { background: rgba(190,150,80,.12); transform: translateY(-1px); }
+.tv-lnav:active { transform: scale(.98); }
+.tv-lnav:focus-visible { outline: 2px solid #BE9650; outline-offset: 2px; }
+.tv-lnav.is-next { flex-direction: row-reverse; text-align: right; }
+.tv-lnav i { display: block; font-style: normal; font-family: 'Jost', sans-serif; font-size: .54rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(243,234,214,.6); }
+.tv-lnav b { display: block; margin-top: .15rem; font-family: 'Jost', sans-serif; font-size: .88rem; font-weight: 600; color: #F3EAD6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tv-progress, .tv-pill, .tv-lnav, .tv-node-disc, .tv-node-glow { transition-duration: .001ms !important; }
+}
+
+@media print {
+  .tv-chart, .tv-rail { break-inside: avoid; }
+}
