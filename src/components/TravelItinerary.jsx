@@ -10,6 +10,7 @@ import WeatherHero from './WeatherHero'
 import DayWeather, { useLegWeather, dateForDay } from './LegWeather'
 import EntryAlerts, { ACTIONABLE, AlertsSummary, UrgentBanner } from './EntryAlerts'
 import ActionsModal from './ActionsModal'
+import PlaceGallery from './PlaceGallery'
 
 /* The site's shared reveal: same offset, duration and easing as SectionHeading
    and the Home page paragraphs, so /travel scrolls like every other page. */
@@ -248,6 +249,8 @@ function LegCard({ leg, onGo }) {
       </div>
 
       <p className="display mt-5 text-xl italic leading-snug text-ivory/90 sm:text-2xl">{leg.summary}</p>
+
+      <PlaceGallery leg={leg} />
 
       <EntryAlerts leg={leg.id} className="mt-5" />
 

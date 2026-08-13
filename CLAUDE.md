@@ -79,7 +79,11 @@ transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
 | `src/lib/entryRequirements.js` | Visa / arrival-card rules. **Verified by the organiser, not by us** |
 | `src/components/EntryAlerts.jsx` | Renders those rules with live countdowns |
 | `src/components/LegWeather.jsx` | Open-Meteo forecast per city |
-| `src/components/DestinationArt.jsx` | Drawn skyline per city |
+| `src/components/DestinationArt.jsx` | Drawn skyline per city (the leg hero) |
+| `src/components/PlaceArt.jsx` | Eighteen drawn landmarks — three per leg |
+| `src/components/PlaceGallery.jsx` | The "While you are there" strip and its viewer |
+| `src/components/Dialog.jsx` | Shared dialog shell — portal, focus trap, scroll lock |
+| `src/components/ActionsModal.jsx` | The paperwork checklist, in a Dialog |
 
 Its custom CSS sits at the end of `src/index.css`, every selector prefixed
 `tv-` so it cannot collide with the rest of the site. Keep that prefix.
@@ -106,6 +110,35 @@ in `ARRIVALS` and every countdown follows.
 **Do not add an item unless a human has verified it against the official site.**
 Rules change and depend on passport and visa type. Every item carries a link to
 the source, and the page tells readers to confirm there.
+
+### Place galleries
+
+Each leg carries a `places` array in `travelData.js`; clicking a card opens it
+full size in a dialog with arrows, keys and dots.
+
+The scenes are **vector, not photographs** — nothing can 404, blur on a retina
+screen, or raise a licensing question. To use real photographs, drop files in
+`public/places/` and add `photo:` to the place. `PlaceGallery` layers the photo
+over the drawing and fades it in only once the browser reports it loaded, so a
+missing or broken file leaves the drawing showing. See
+`public/places/README.md`. Mixing drawn and photographed places is fine.
+
+### Dialogs and the scroll lock
+
+Every dialog goes through `Dialog.jsx`. Do not hand-roll another one — the
+scroll lock is where the bodies are buried:
+
+- `body` is clipped sideways. With `overflow-x: hidden` that makes body a
+  second scroll container next to `<html>`, the scroll position splits between
+  them, and `overflow: hidden` on either collapses the page height and throws
+  the reader hundreds of pixels up. Body now uses `overflow-x: clip`, which
+  clamps without creating a scroller. **Do not change that back.**
+- The lock pins `body` at `-scrollY` rather than hiding overflow, so it holds
+  on engines without `clip` too.
+- `html` has `scroll-behavior: smooth`, so the position is restored with
+  `behavior: 'instant'` — otherwise closing animates the page back.
+- The effect depends on `open` alone; `onClose` is held in a ref. Depending on
+  it directly re-arms the lock on every render and the page drifts.
 
 ### Weather
 

@@ -8,6 +8,12 @@
 //  `arc` is the angle in degrees around the route circle at which the leg
 //  sits, measured clockwise from Washington at the top. It drives the gold
 //  progress arc on the chart.
+//
+//  `places` is the gallery that opens with each leg. `art` names a drawn scene
+//  in PlaceArt.jsx. To use a photograph instead, put the file in
+//  public/places/ and add `photo: '/places/<file>.jpg'` — the gallery layers it
+//  over the drawing and fades it in once it has loaded, so a missing or broken
+//  file simply leaves the drawing showing. Nothing else needs changing.
 // ===========================================================================
 
 const F = (code, city, time) => ({ code, city, time })
@@ -34,6 +40,14 @@ export const LEGS = [
     id: 'outbound', coords: { lat: 38.9072, lon: -77.0369 }, range: ['2026-08-14', '2026-08-15'], num: null, icon: 'plane', name: 'Outbound',
     place: 'Washington · Abu Dhabi', span: 'Fri Aug 14 — Sun Aug 16', nights: '2 days in transit',
     arc: 40, stay: null,
+    places: [
+      { id: 'capitol', name: 'The Capitol', note: 'Washington, D.C.',
+        blurb: 'Where it starts — an afternoon departure out of Dulles on Friday the 14th.', art: 'capitol' },
+      { id: 'grand-mosque', name: 'Sheikh Zayed Grand Mosque', note: 'Abu Dhabi',
+        blurb: 'The connecting city. Eighty-two white domes and a reflecting pool that doubles them.', art: 'grandMosque' },
+      { id: 'above', name: 'Somewhere over the Gulf', note: 'In transit',
+        blurb: 'Two nights of the trip are spent in the air before the first bed in Jakarta.', art: 'aboveClouds' },
+    ],
     summary:
       'Two days in the air — Washington to Abu Dhabi, an evening connection, and into Jakarta on Sunday morning.',
     days: [
@@ -54,6 +68,14 @@ export const LEGS = [
       addr: 'Jalan Jend Gatot Subroto Kav 18, Jakarta 12710',
       in: 'Sun, Aug 16 · 3:00 PM', out: 'Mon, Aug 17 · 12:00 PM',
     },
+    places: [
+      { id: 'monas', name: 'Monas', note: 'Merdeka Square',
+        blurb: 'A 132-metre marble obelisk topped with a flame under 35 kilos of gold leaf. Jakarta measures itself from here.', art: 'monas' },
+      { id: 'istiqlal', name: 'Istiqlal Mosque', note: 'Sawah Besar',
+        blurb: 'The largest mosque in Southeast Asia, and it faces the Catholic cathedral across the road — the two share parking on each other’s holidays.', art: 'istiqlal' },
+      { id: 'kota-tua', name: 'Kota Tua', note: 'The old town',
+        blurb: 'Dutch colonial Batavia around Fatahillah Square — the clock tower, the shutters, and the painted rental bicycles.', art: 'kotaTua' },
+    ],
     summary: 'One night in the capital before the afternoon hop east to Surabaya.',
     days: [
       { n: 3, when: 'Sun · Aug 16', icon: 'plane', what: 'Arrive Jakarta',
@@ -70,6 +92,14 @@ export const LEGS = [
       addr: 'Jalan Embong Malang 85–89, Surabaya 60261',
       in: 'Mon, Aug 17 · 2:00 PM', out: 'Wed, Aug 19 · before 12:00 PM',
     },
+    places: [
+      { id: 'heroes', name: 'Tugu Pahlawan', note: 'Heroes Monument',
+        blurb: 'Forty-one metres of fluted stone for the battle of November 1945. Surabaya is called the City of Heroes because of it.', art: 'heroes' },
+      { id: 'suramadu', name: 'Suramadu Bridge', note: 'The Madura Strait',
+        blurb: 'Indonesia’s longest bridge — 5.4 kilometres of cable-stayed deck, best seen as the sun goes down behind it.', art: 'suramadu' },
+      { id: 'al-akbar', name: 'Al-Akbar Mosque', note: 'Pagesangan',
+        blurb: 'The great turquoise dome with four smaller ones around it, and a minaret you can ride to the top of.', art: 'alAkbar' },
+    ],
     summary: 'Two nights in East Java, then an evening flight out through Singapore.',
     days: [
       { n: 4, when: 'Mon · Aug 17', icon: 'plane', what: 'Jakarta → Surabaya',
@@ -92,6 +122,14 @@ export const LEGS = [
       addr: '176 Cumberland Street, The Rocks, NSW · +61 2 9250 6111',
       in: 'Thu, Aug 20 · 3:00 PM', out: 'Sat, Aug 22 · 11:00 AM',
     },
+    places: [
+      { id: 'opera', name: 'Sydney Opera House', note: 'Bennelong Point',
+        blurb: 'Ten minutes on foot from the hotel. The shells are clad in over a million tiles, and they are not white — they are cream and off-white in two shades.', art: 'opera' },
+      { id: 'harbour-bridge', name: 'Harbour Bridge', note: 'From The Rocks',
+        blurb: 'The Shangri-La sits under it. Locals call it the Coathanger; the arch is a 503-metre single steel span.', art: 'harbourBridge' },
+      { id: 'bondi', name: 'Bondi Beach', note: 'East of the city',
+        blurb: 'August is late winter here — the water is around 17°C and the walk to Bronte is the better use of the morning.', art: 'bondi' },
+    ],
     summary: 'A late connection in Singapore, a red-eye south, and two nights over the harbour.',
     days: [
       { n: 6, when: 'Wed · Aug 19', icon: 'moon', what: 'Singapore',
@@ -112,6 +150,14 @@ export const LEGS = [
     id: 'bali', coords: { lat: -8.6500, lon: 115.2167 }, range: ['2026-08-22', '2026-08-27'], num: 4, icon: 'people', name: 'Bali',
     place: 'Denpasar · Indonesia', span: 'Sat Aug 22 — Thu Aug 27', nights: '5 nights', arc: 205,
     stay: null,
+    places: [
+      { id: 'tanah-lot', name: 'Tanah Lot', note: 'The west coast',
+        blurb: 'A temple on a rock the tide cuts off twice a day. Sunset is the hour everyone comes for, and it earns it.', art: 'tanahLot' },
+      { id: 'rice-terraces', name: 'Tegalalang', note: 'North of Ubud',
+        blurb: 'Terraces cut by hand and watered by subak, the thousand-year-old irrigation system the villages still run between themselves.', art: 'riceTerraces' },
+      { id: 'uluwatu', name: 'Uluwatu', note: 'The southern cliffs',
+        blurb: 'A split gate on a limestone cliff seventy metres above the Indian Ocean. Kecak dance at dusk, and monkeys that will take your sunglasses.', art: 'uluwatu' },
+    ],
     summary: 'Five nights, everyone together — the two departures converge in Bali on Aug 22–23.',
     days: [
       { n: 9, when: 'Sat · Aug 22', icon: 'plane', what: 'First group arrives',
@@ -135,6 +181,14 @@ export const LEGS = [
       addr: 'Guangzhou, Guangdong · ground transfer to Hong Kong for the flight home',
       in: 'Thu, Aug 27 · from 5:55 AM', out: 'Sun, Aug 30 · 12:45 AM departure',
     },
+    places: [
+      { id: 'canton-tower', name: 'Canton Tower', note: 'On the Pearl River',
+        blurb: 'Six hundred metres of twisted steel lattice — the waist is the narrow point, which is why it is nicknamed the Slim Waist.', art: 'cantonTower' },
+      { id: 'pearl-river', name: 'The Pearl River', note: 'Night cruise',
+        blurb: 'The city lights both banks and runs boats between the bridges after dark. An hour on the water is the easiest way to see it.', art: 'pearlRiver' },
+      { id: 'chen-clan', name: 'Chen Clan Ancestral Hall', note: 'Liwan',
+        blurb: 'An 1894 academy built by seventy-two Chen villages, with ridge roofs carved end to end in painted pottery figures.', art: 'chenClan' },
+    ],
     summary: 'Three nights in Guangzhou, then the long way home through Hong Kong and Seoul.',
     days: [
       { n: 14, when: 'Thu · Aug 27', icon: 'plane', what: 'Arrive Guangzhou',
