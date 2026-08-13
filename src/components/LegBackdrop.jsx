@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import PlaceArt, { ACCENTS } from './PlaceArt'
+import { backdropFor } from '../lib/placePhotos'
 
 /*
  * The country behind the leg.
  *
- * Each leg carries a few scenes of where it is going; they cross-fade slowly
- * so the card has a background that moves rather than a static banner. The
- * bottom fades into the card so type stays legible over it.
+ * Photographs if any have been added for that leg (drop files into
+ * src/assets/places/ — see the notes there), otherwise the drawn scenes. They
+ * cross-fade slowly so the card has a background that moves rather than a
+ * static banner, and the bottom fades into the card so type stays legible.
  *
- * Anyone who has asked their system for less motion gets the first scene,
- * held still.
+ * Anyone who has asked their system for less motion gets the first one, held.
  */
 
 const HOLD = 7000
 
 export default function LegBackdrop({ leg }) {
-  const scenes = leg.places?.length ? leg.places : []
+  const scenes = backdropFor(leg)
   const [i, setI] = useState(0)
+  const [failed, setFailed] = useState(() => new Set())
   const accent = ACCENTS[leg.id]
 
   // a new leg starts from its first scene
@@ -32,6 +34,9 @@ export default function LegBackdrop({ leg }) {
 
   if (!scenes.length) return null
   const shown = scenes[i] ?? scenes[0]
+  // a photograph that will not load falls back to the drawing rather than to
+  // an empty frame; if it has no drawing there is still the card's own ground
+  const usePhoto = shown.photo && !failed.has(shown.photo)
 
   return (
     <div className="tv-bd" style={{ '--accent': accent?.key }}>
@@ -44,8 +49,17 @@ export default function LegBackdrop({ leg }) {
           exit={{ opacity: 0 }}
           transition={{ opacity: { duration: 1.5 }, scale: { duration: HOLD / 1000 + 1.5, ease: 'linear' } }}
         >
-          <PlaceArt art={shown.art} className="tv-bd-svg" align="xMidYMin" />
-          {shown.photo && <img src={shown.photo} alt="" className="tv-bd-photo" loading="lazy" decoding="async" />}
+          {shown.art && <PlaceArt art={shown.art} className="tv-bd-svg" align="xMidYMin" />}
+          {usePhoto && (
+            <img
+              src={shown.photo}
+              alt=""
+              className="tv-bd-photo"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              onError={() => setFailed((s) => new Set(s).add(shown.photo))}
+            />
+          )}
         </motion.div>
       </AnimatePresence>
 

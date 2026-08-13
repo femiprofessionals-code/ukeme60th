@@ -80,7 +80,8 @@ transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
 | `src/components/EntryAlerts.jsx` | Renders those rules with live countdowns |
 | `src/components/LegWeather.jsx` | Open-Meteo forecast per city |
 | `src/components/PlaceArt.jsx` | Eighteen drawn scenes — three per leg — and `ACCENTS` |
-| `src/components/LegBackdrop.jsx` | Those scenes as the leg's background, cross-fading |
+| `src/components/LegBackdrop.jsx` | The leg's background — photographs if any, else the drawings |
+| `src/lib/placePhotos.js` | Globs `src/assets/places/` so dropped-in photos just appear |
 | `src/components/Dialog.jsx` | Shared dialog shell — portal, focus trap, scroll lock |
 | `src/components/ActionsModal.jsx` | The paperwork checklist, in a Dialog |
 
@@ -126,11 +127,16 @@ Two things that will bite if changed:
   `min-height` on a narrow phone inflates the *width* past the card instead of
   the height.
 
-The scenes are **vector, not photographs** — nothing can 404, blur on a retina
-screen, or raise a licensing question. To use real photographs, drop files in
-`public/places/` and add `photo:` to the entry; the photo layers over the
-drawing and fades in only once loaded, so a missing or broken file leaves the
-drawing showing. See `public/places/README.md`.
+**Photographs.** Drop image files into `src/assets/places/` named after the
+leg — `sydney.jpg`, `sydney-opera-house.jpg`, `bali-1.jpg` — and they appear.
+`src/lib/placePhotos.js` globs the folder at build time, so there is no list to
+keep in step; Vite hashes and optimises each file. As soon as one photograph
+exists for a leg, that leg shows photographs only, so this can be done a
+country at a time. A photograph that fails to load falls back to the drawing.
+See `src/assets/places/README.md`.
+
+The drawn scenes are the fallback, and the reason there is one: nothing can
+404, blur on a retina screen, or raise a licensing question.
 
 ### Dialogs and the scroll lock
 
