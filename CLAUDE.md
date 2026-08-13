@@ -79,9 +79,8 @@ transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
 | `src/lib/entryRequirements.js` | Visa / arrival-card rules. **Verified by the organiser, not by us** |
 | `src/components/EntryAlerts.jsx` | Renders those rules with live countdowns |
 | `src/components/LegWeather.jsx` | Open-Meteo forecast per city |
-| `src/components/DestinationArt.jsx` | Drawn skyline per city (the leg hero) |
-| `src/components/PlaceArt.jsx` | Eighteen drawn landmarks — three per leg |
-| `src/components/PlaceGallery.jsx` | The "While you are there" strip and its viewer |
+| `src/components/PlaceArt.jsx` | Eighteen drawn scenes — three per leg — and `ACCENTS` |
+| `src/components/LegBackdrop.jsx` | Those scenes as the leg's background, cross-fading |
 | `src/components/Dialog.jsx` | Shared dialog shell — portal, focus trap, scroll lock |
 | `src/components/ActionsModal.jsx` | The paperwork checklist, in a Dialog |
 
@@ -111,17 +110,27 @@ in `ARRIVALS` and every countdown follows.
 Rules change and depend on passport and visa type. Every item carries a link to
 the source, and the page tells readers to confirm there.
 
-### Place galleries
+### The leg backdrop
 
-Each leg carries a `places` array in `travelData.js`; clicking a card opens it
-full size in a dialog with arrows, keys and dots.
+Selecting a city gives its leg a large background image of the country. Each
+leg carries a `places` array in `travelData.js`; `LegBackdrop` cross-fades
+through them every seven seconds, names the current one top-left, and fades the
+bottom into the card so the type over it stays readable. `prefers-reduced-
+motion` holds the first scene still.
+
+Two things that will bite if changed:
+
+- The scenes are 400x300 and drawn with `preserveAspectRatio="xMidYMin slice"`,
+  so a wide box crops the foreground rather than the top of the landmark.
+- `.tv-bd` pins `width: 100%` alongside its `aspect-ratio`. Without it,
+  `min-height` on a narrow phone inflates the *width* past the card instead of
+  the height.
 
 The scenes are **vector, not photographs** — nothing can 404, blur on a retina
 screen, or raise a licensing question. To use real photographs, drop files in
-`public/places/` and add `photo:` to the place. `PlaceGallery` layers the photo
-over the drawing and fades it in only once the browser reports it loaded, so a
-missing or broken file leaves the drawing showing. See
-`public/places/README.md`. Mixing drawn and photographed places is fine.
+`public/places/` and add `photo:` to the entry; the photo layers over the
+drawing and fades in only once loaded, so a missing or broken file leaves the
+drawing showing. See `public/places/README.md`.
 
 ### Dialogs and the scroll lock
 

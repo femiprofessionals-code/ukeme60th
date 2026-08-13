@@ -297,19 +297,6 @@ select.field {
 /* ---- travel: destination scenes, per-day weather, entry alerts ---- */
 
 /* the illustration is the top of the card, full bleed, meant to be seen */
-.tv-scene { position: relative; margin: 0; height: 132px; overflow: hidden; }
-@media (min-width: 640px) { .tv-scene { height: 168px; } }
-.tv-scene svg { width: 100%; height: 100%; display: block; }
-.tv-scene::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(9,9,10,0) 42%, rgba(9,9,10,.72) 82%, #0E0E10 100%);
-}
-.tv-scene-cap {
-  position: absolute; left: 1.1rem; bottom: .55rem; z-index: 1;
-  font-family: 'Jost', sans-serif; font-size: .58rem; letter-spacing: .22em;
-  text-transform: uppercase; color: rgba(243,234,214,.9);
-  text-shadow: 0 1px 6px rgba(0,0,0,.7);
-}
 
 /* each leg carries its own accent, drawn from its illustration */
 .tv-leg { border-top: 2px solid var(--accent, #BE9650); }
@@ -382,13 +369,6 @@ select.field {
 .tv-wxhero-dic svg { width: 100%; height: 100%; display: block; }
 .tv-wxhero-dt { font-family: 'Jost', sans-serif; font-size: .68rem; font-weight: 700; color: #FFF7E6; }
 
-/* the scene needs more room now that the forecast sits on it */
-.tv-scene { height: 176px; }
-@media (min-width: 640px) { .tv-scene { height: 208px; } }
-.tv-scene::after {
-  background: linear-gradient(180deg, rgba(9,9,10,0) 30%, rgba(9,9,10,.55) 62%, rgba(9,9,10,.9) 100%);
-}
-.tv-scene-cap { bottom: auto; top: .6rem; left: 1.1rem; }
 
 /* the forecast row scrolls — fade the ends so it reads that way rather than clipped */
 .tv-wxhero-days {
@@ -399,8 +379,6 @@ select.field {
 .tv-wxhero-days li { padding: .18rem .42rem; gap: .24rem; }
 .tv-wxhero-dow { font-size: .55rem; }
 .tv-wxhero-dt  { font-size: .64rem; }
-/* keep the scene caption clear of the fixed site header */
-.tv-scene-cap { top: auto; bottom: 4.4rem; }
 
 /* ---- entry paperwork ---- */
 
@@ -750,3 +728,43 @@ select.field {
   .tv-pl-card:hover { transform: none; }
   .tv-pl-card:hover .tv-pl-svg, .tv-pl-card:hover .tv-pl-photo { transform: none; }
 }
+
+/* --------------------------------------------------------- leg backdrop --
+   The country behind the leg: its scenes cross-fading, fading out at the
+   bottom so the card's own type stays readable over it. */
+
+.tv-bd {
+  position: relative; overflow: hidden;
+  /* close to the scenes' own 4:3 so little of them is cropped away; capped so
+     the image never pushes the whole card off a laptop screen */
+  /* width pinned: with aspect-ratio alone, min-height inflates the width past
+     the card on a narrow phone. Pinning it lets height win instead. */
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  min-height: 215px; max-height: 440px;
+  background: #0B0B0D;
+}
+.tv-bd-slide { position: absolute; inset: 0; }
+.tv-bd-svg, .tv-bd-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; object-fit: cover;
+}
+.tv-bd-veil {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(9,9,10,.5) 0, rgba(9,9,10,.02) 14%, rgba(9,9,10,.06) 40%, rgba(9,9,10,.5) 68%, rgba(9,9,10,.93) 90%, #0E0E10 100%),
+    radial-gradient(120% 80% at 50% 30%, transparent 40%, rgba(9,9,10,.4) 100%);
+}
+.tv-bd-cap {
+  position: absolute; top: .7rem; left: 1.1rem; right: 1.1rem; z-index: 2;
+  margin: 0; display: flex; align-items: center; gap: .6rem;
+  font-family: 'Jost', sans-serif; font-size: .58rem; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase; color: rgba(243,234,214,.92);
+  text-shadow: 0 1px 8px rgba(0,0,0,.8);
+}
+.tv-bd-dots { display: inline-flex; gap: .28rem; }
+.tv-bd-dots i {
+  width: 12px; height: 3px; border-radius: 999px;
+  background: rgba(243,234,214,.3); transition: background .6s, width .6s;
+}
+.tv-bd-dots i.is-on { width: 20px; background: var(--accent, #DEC894); }

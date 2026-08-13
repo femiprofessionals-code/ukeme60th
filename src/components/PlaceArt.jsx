@@ -17,6 +17,20 @@
  * matters inside the middle band.
  */
 
+/**
+ * Each leg's colour, taken from its scenes. Drives the card's border, the
+ * counts, the glyph and the node on the route chart, so a leg reads as one
+ * place rather than as generic gold.
+ */
+export const ACCENTS = {
+  outbound:  { key: '#6C8BD6', glow: 'rgba(108,139,214,.30)' },
+  jakarta:   { key: '#E8843C', glow: 'rgba(232,132,60,.32)' },
+  surabaya:  { key: '#E2565F', glow: 'rgba(226,86,95,.30)' },
+  sydney:    { key: '#3FA8C4', glow: 'rgba(63,168,196,.30)' },
+  bali:      { key: '#3FBB94', glow: 'rgba(63,187,148,.30)' },
+  guangzhou: { key: '#C2569C', glow: 'rgba(194,86,156,.30)' },
+}
+
 const S = { fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' }
 
 /** Small fixed star field — fixed, not random, so it never flickers on re-render. */
@@ -38,8 +52,8 @@ function Stars({ opacity = 0.9 }) {
 function Orb({ cx, cy, r, core, halo }) {
   return (
     <>
-      <circle cx={cx} cy={cy} r={r * 2.1} fill={halo} opacity=".22" />
-      <circle cx={cx} cy={cy} r={r * 1.45} fill={halo} opacity=".3" />
+      <circle cx={cx} cy={cy} r={r * 2.1} fill={halo} opacity=".13" />
+      <circle cx={cx} cy={cy} r={r * 1.45} fill={halo} opacity=".2" />
       <circle cx={cx} cy={cy} r={r} fill={core} />
     </>
   )
@@ -1114,13 +1128,16 @@ export const PLACE_ART = {
  * One scene, cropped to whatever box it is given.
  * Decorative by default — the caption next to it carries the meaning.
  */
-export default function PlaceArt({ art, className = '', title }) {
+export default function PlaceArt({ art, className = '', title, align = 'xMidYMid' }) {
   const Scene = PLACE_ART[art]
   if (!Scene) return null
+  // In a box wider than 4:3 the scene is cropped top and bottom. `xMidYMin`
+  // keeps the sky and the top of the landmark and crops the foreground
+  // instead, which is what the backdrop wants.
   return (
     <svg
       viewBox="0 0 400 300"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio={`${align} slice`}
       className={className}
       role={title ? 'img' : 'presentation'}
       aria-label={title || undefined}
