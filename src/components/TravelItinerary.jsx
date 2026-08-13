@@ -5,6 +5,9 @@ import Sparkles from './Sparkles'
 import SectionHeading from './SectionHeading'
 import GoldDivider from './GoldDivider'
 import DecorativeBorder from './DecorativeBorder'
+import DestinationArt from './DestinationArt'
+import LegWeather from './LegWeather'
+import EntryAlerts from './EntryAlerts'
 
 /* The site's shared reveal: same offset, duration and easing as SectionHeading
    and the Home page paragraphs, so /travel scrolls like every other page. */
@@ -200,9 +203,10 @@ function LegCard({ leg, onGo }) {
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="glass-card rounded-2xl p-6 shadow-card sm:p-8"
+      className="glass-card relative overflow-hidden rounded-2xl p-6 shadow-card sm:p-8"
     >
-      <div className="flex items-start justify-between gap-4">
+      <DestinationArt id={leg.id} />
+      <div className="relative flex items-start justify-between gap-4">
         <span className="tv-glyph">
           {leg.num ? leg.num : <Ico name="plane" className="h-5 w-5" />}
         </span>
@@ -235,6 +239,10 @@ function LegCard({ leg, onGo }) {
       </div>
 
       <p className="display mt-5 text-xl italic leading-snug text-ivory/90 sm:text-2xl">{leg.summary}</p>
+
+      <LegWeather leg={leg} />
+
+      <EntryAlerts leg={leg.id} className="mt-5" />
 
       <ul className="mt-6 list-none p-0">
         {leg.days.map((d, idx) => (
@@ -365,6 +373,19 @@ export default function TravelItinerary() {
                 ))}
               </div>
             </DecorativeBorder>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="marble relative overflow-hidden bg-chocolate px-5 py-16 sm:px-8 sm:py-20">
+        <div className="relative mx-auto max-w-5xl">
+          <SectionHeading
+            eyebrow="Paperwork & deadlines"
+            title="Before You Fly"
+            subtitle="Timings count back from each arrival, so these update themselves as the trip approaches. Every link goes to the official site — confirm there, as rules change and depend on your passport and visa type."
+          />
+          <Reveal delay={0.1}>
+            <EntryAlerts className="mt-10" />
           </Reveal>
         </div>
       </section>

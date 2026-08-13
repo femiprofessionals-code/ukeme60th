@@ -76,6 +76,10 @@ transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
 | `src/components/TravelItinerary.jsx` | Route chart, leg cards, day timeline |
 | `src/components/PasswordGate.jsx` | The gate |
 | `src/pages/Travel.jsx` | Route entry; lazily imports the itinerary |
+| `src/lib/entryRequirements.js` | Visa / arrival-card rules. **Verified by the organiser, not by us** |
+| `src/components/EntryAlerts.jsx` | Renders those rules with live countdowns |
+| `src/components/LegWeather.jsx` | Open-Meteo forecast per city |
+| `src/components/DestinationArt.jsx` | Drawn skyline per city |
 
 Its custom CSS sits at the end of `src/index.css`, every selector prefixed
 `tv-` so it cannot collide with the rest of the site. Keep that prefix.
@@ -91,6 +95,25 @@ printf '%s' 'new-passphrase' | shasum -a 256
 This is a deterrent, not security — the site is a static bundle with no server.
 Anyone who reads the JavaScript can reach the chunk. For real protection, use
 the host's built-in password feature.
+
+### Entry requirements
+
+`entryRequirements.js` holds the paperwork. Each item stores an arrival date and
+`opensDaysBefore`; `statusOf()` works out the window against today, so a card
+says "open now" or "opens in 4 days" without anyone editing copy. Change a date
+in `ARRIVALS` and every countdown follows.
+
+**Do not add an item unless a human has verified it against the official site.**
+Rules change and depend on passport and visa type. Every item carries a link to
+the source, and the page tells readers to confirm there.
+
+### Weather
+
+`LegWeather.jsx` calls Open-Meteo — free, no API key, CORS-enabled, so it works
+from a static host. It caches per leg in `sessionStorage` for an hour and
+**fails silently**: if the request errors the strip does not render, because a
+broken widget is worse than none on a page people rely on. The forecast horizon
+is roughly sixteen days, so dates further out simply return nothing.
 
 ## Deployment
 

@@ -31,7 +31,7 @@ export const TRIP = {
 
 export const LEGS = [
   {
-    id: 'outbound', num: null, icon: 'plane', name: 'Outbound',
+    id: 'outbound', coords: null, range: null, num: null, icon: 'plane', name: 'Outbound',
     place: 'Washington · Abu Dhabi', span: 'Fri Aug 14 — Sun Aug 16', nights: '2 days in transit',
     arc: 40, stay: null,
     summary:
@@ -47,7 +47,7 @@ export const LEGS = [
     ],
   },
   {
-    id: 'jakarta', num: 1, icon: 'city', name: 'Jakarta',
+    id: 'jakarta', coords: { lat: -6.2088, lon: 106.8456 }, range: ['2026-08-16', '2026-08-17'], num: 1, icon: 'city', name: 'Jakarta',
     place: 'Indonesia', span: 'Sun Aug 16 — Mon Aug 17', nights: '1 night', arc: 68,
     stay: {
       name: 'Four Seasons Hotel Jakarta',
@@ -63,7 +63,7 @@ export const LEGS = [
     ],
   },
   {
-    id: 'surabaya', num: 2, icon: 'city', name: 'Surabaya',
+    id: 'surabaya', coords: { lat: -7.2575, lon: 112.7521 }, range: ['2026-08-17', '2026-08-19'], num: 2, icon: 'city', name: 'Surabaya',
     place: 'East Java · Indonesia', span: 'Mon Aug 17 — Wed Aug 19', nights: '2 nights', arc: 104,
     stay: {
       name: 'JW Marriott Hotel Surabaya',
@@ -85,7 +85,7 @@ export const LEGS = [
     ],
   },
   {
-    id: 'sydney', num: 3, icon: 'city', name: 'Sydney',
+    id: 'sydney', coords: { lat: -33.8688, lon: 151.2093 }, range: ['2026-08-20', '2026-08-22'], num: 3, icon: 'city', name: 'Sydney',
     place: 'The Rocks · Australia', span: 'Thu Aug 20 — Sat Aug 22', nights: '2 nights', arc: 158,
     stay: {
       name: 'Shangri-La Sydney',
@@ -109,7 +109,7 @@ export const LEGS = [
     ],
   },
   {
-    id: 'bali', num: 4, icon: 'people', name: 'Bali',
+    id: 'bali', coords: { lat: -8.6500, lon: 115.2167 }, range: ['2026-08-22', '2026-08-27'], num: 4, icon: 'people', name: 'Bali',
     place: 'Denpasar · Indonesia', span: 'Sat Aug 22 — Thu Aug 27', nights: '5 nights', arc: 205,
     stay: null,
     summary: 'Five nights, everyone together — the two departures converge in Bali on Aug 22–23.',
@@ -128,7 +128,7 @@ export const LEGS = [
     ],
   },
   {
-    id: 'guangzhou', num: 5, icon: 'city', name: 'Guangzhou',
+    id: 'guangzhou', coords: { lat: 23.1291, lon: 113.2644 }, range: ['2026-08-27', '2026-08-30'], num: 5, icon: 'city', name: 'Guangzhou',
     place: 'Guangdong · China', span: 'Thu Aug 27 — Sun Aug 30', nights: '3 nights', arc: 248,
     stay: {
       name: 'Rosewood Guangzhou',
