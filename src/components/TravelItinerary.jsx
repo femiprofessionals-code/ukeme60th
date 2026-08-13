@@ -8,7 +8,8 @@ import DecorativeBorder from './DecorativeBorder'
 import DestinationArt, { ACCENTS } from './DestinationArt'
 import WeatherHero from './WeatherHero'
 import DayWeather, { useLegWeather, dateForDay } from './LegWeather'
-import EntryAlerts, { AlertsSummary, NoActionNote, UrgentBanner } from './EntryAlerts'
+import EntryAlerts, { ACTIONABLE, AlertsSummary, UrgentBanner } from './EntryAlerts'
+import ActionsModal from './ActionsModal'
 
 /* The site's shared reveal: same offset, duration and easing as SectionHeading
    and the Home page paragraphs, so /travel scrolls like every other page. */
@@ -297,6 +298,7 @@ function LegCard({ leg, onGo }) {
 export default function TravelItinerary() {
   const [current, setCurrent] = useState('outbound')
   const [counted, setCounted] = useState(false)
+  const [actionsOpen, setActionsOpen] = useState(false)
   const statsRef = useRef(null)
   const stageRef = useRef(null)
   const touch = useRef({ x: 0, y: 0, on: false })
@@ -340,8 +342,10 @@ export default function TravelItinerary() {
     <>
       <Sprite />
 
+      <ActionsModal open={actionsOpen} onClose={() => setActionsOpen(false)} />
+
       <div className="mx-auto max-w-5xl px-5 pt-24 sm:px-8 sm:pt-28">
-        <UrgentBanner />
+        <UrgentBanner onOpen={() => setActionsOpen(true)} />
       </div>
 
       <section className="marble relative overflow-hidden bg-choco-radial px-5 pb-10 pt-6 text-center sm:px-8 sm:pt-8">
@@ -396,13 +400,23 @@ export default function TravelItinerary() {
           <SectionHeading
             eyebrow="Paperwork & deadlines"
             title="Action Required"
-            subtitle="Everything here needs someone to go and do it. Timings count back from each arrival, so they update themselves as the trip approaches. Every link goes to the official site — confirm there, as rules change and depend on your passport and visa type."
+            subtitle="Everything on the checklist needs someone to go and do it. Timings count back from each arrival, so they keep themselves current as the trip approaches. Open it below — every link goes to the official site."
           />
           <Reveal delay={0.06}><AlertsSummary /></Reveal>
-          <Reveal delay={0.12}>
-            <EntryAlerts className="mt-10" actionableOnly />
+          <Reveal delay={0.09}>
+            <div className="mt-8 text-center">
+              <button type="button" className="tv-open-actions" onClick={() => setActionsOpen(true)}>
+                Open the checklist
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M4 6h16M4 12h16M4 18h10" />
+                </svg>
+              </button>
+              <p className="tv-open-hint">
+                {ACTIONABLE.length} items · Indonesia · Singapore · Australia · mainland China
+              </p>
+            </div>
           </Reveal>
-          <Reveal delay={0.18}><NoActionNote /></Reveal>
         </div>
       </section>
 

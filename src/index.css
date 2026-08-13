@@ -22,7 +22,13 @@ body {
   font-family: 'Jost', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* `clip` keeps the sideways clamp but, unlike `hidden`, does not turn body
+     into a scroll container of its own. With `hidden` the page had two
+     scrollers — html and body — which splits the scroll position between them
+     and makes any modal scroll-lock jump the page. Older engines ignore the
+     second declaration and keep the original behaviour. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 @layer components {
@@ -557,3 +563,88 @@ select.field {
 .tv-al-none span { color: rgba(243,234,214,.5); }
 
 @media (prefers-reduced-motion: reduce) { .tv-urgent-pulse { animation: none; } }
+
+/* ---- action checklist dialog ---- */
+.tv-modal-root { position: fixed; inset: 0; z-index: 80; display: grid; place-items: end center; }
+@media (min-width: 720px) { .tv-modal-root { place-items: center; } }
+.tv-modal-scrim {
+  position: absolute; inset: 0; background: rgba(4,4,6,.78);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.tv-modal {
+  position: relative; width: 100%; max-width: 46rem; max-height: 92vh;
+  display: flex; flex-direction: column;
+  border-radius: 1.1rem 1.1rem 0 0;
+  background: linear-gradient(168deg, #17171A, #0B0B0D 72%);
+  box-shadow: 0 0 0 1px rgba(190,150,80,.32) inset, 0 -20px 60px -20px rgba(0,0,0,.9);
+}
+@media (min-width: 720px) { .tv-modal { border-radius: 1.1rem; max-height: 86vh; } }
+
+.tv-modal-head {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.25rem 1.25rem 1rem; border-bottom: 1px solid rgba(190,150,80,.18);
+}
+.tv-modal-title {
+  margin: .35rem 0 0; font-size: 1.9rem; line-height: 1; color: #F3EAD6; font-weight: 600;
+}
+.tv-modal-counts {
+  margin: .5rem 0 0; font-family: 'Jost', sans-serif; font-size: .74rem;
+  color: rgba(243,234,214,.7);
+}
+.tv-modal-counts b { color: #FFC9A8; font-weight: 700; }
+.tv-modal-x {
+  margin-left: auto; flex: none; width: 36px; height: 36px; display: grid; place-items: center;
+  border-radius: 50%; color: #DEC894;
+  background: rgba(255,255,255,.05); box-shadow: 0 0 0 1px rgba(190,150,80,.3) inset;
+  transition: background .25s, transform .25s;
+}
+.tv-modal-x svg { width: 16px; height: 16px; }
+.tv-modal-x:hover { background: rgba(190,150,80,.18); transform: rotate(90deg); }
+.tv-modal-x:focus-visible { outline: 2px solid #BE9650; outline-offset: 2px; }
+
+.tv-modal-body { padding: 1.15rem 1.25rem 1.5rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.tv-modal-note { font-size: .8rem; line-height: 1.6; color: rgba(243,234,214,.62); }
+
+.tv-modal-body::-webkit-scrollbar { width: 6px; }
+.tv-modal-body::-webkit-scrollbar-thumb { background: rgba(190,150,80,.35); border-radius: 999px; }
+.tv-modal-body { scrollbar-width: thin; scrollbar-color: rgba(190,150,80,.35) transparent; }
+
+.tv-modal-foot {
+  position: relative;
+  padding: .9rem 1.25rem 1.15rem; border-top: 1px solid rgba(190,150,80,.18);
+  display: flex; justify-content: flex-end;
+}
+/* a soft fade over the list above, so a part-scrolled card reads as
+   "there is more below" rather than as a card cut in half */
+.tv-modal-foot::before {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 2.4rem;
+  background: linear-gradient(to top, #0B0B0D, rgba(11,11,13,0));
+  pointer-events: none;
+}
+.tv-modal-done {
+  padding: .6rem 1.4rem; border-radius: 999px;
+  font-family: 'Jost', sans-serif; font-size: .76rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: #16110C;
+  background: linear-gradient(135deg, #EFE3C3, #BE9650);
+  transition: filter .25s, transform .25s;
+}
+.tv-modal-done:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.tv-modal-done:focus-visible { outline: 2px solid #FFF7E6; outline-offset: 3px; }
+
+.tv-open-actions {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .65rem 1.3rem; border-radius: 999px;
+  font-family: 'Jost', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: #16110C;
+  background: linear-gradient(135deg, #EFE3C3, #BE9650);
+  box-shadow: 0 10px 26px -12px rgba(190,150,80,.9);
+  transition: filter .25s, transform .25s;
+}
+.tv-open-actions:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.tv-open-actions:focus-visible { outline: 2px solid #FFF7E6; outline-offset: 3px; }
+.tv-open-hint {
+  margin-top: .85rem;
+  font-family: 'Jost', sans-serif; font-size: .68rem; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(243,234,214,.62);
+}

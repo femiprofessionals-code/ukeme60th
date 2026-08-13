@@ -174,7 +174,7 @@ export function NoActionNote() {
  * A banner for anything open right now. Sits at the top of the page so an
  * open window is the first thing seen, not something found by scrolling.
  */
-export function UrgentBanner() {
+export function UrgentBanner({ onOpen }) {
   const live = order(ACTIONABLE.filter((r) => ['open', 'anytime'].includes(statusOf(r).state)))
   if (!live.length) return null
   const lead = live[0]
@@ -200,13 +200,13 @@ export function UrgentBanner() {
           {s.daysToArrival >= 0 && ` (${s.daysToArrival} day${s.daysToArrival === 1 ? '' : 's'})`}
         </span>
       </div>
-      <a href="#before-you-fly" className="tv-urgent-go">
+      <button type="button" className="tv-urgent-go" onClick={onOpen}>
         See all
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M9 5.4 15.6 12 9 18.6" />
         </svg>
-      </a>
+      </button>
     </motion.aside>
   )
 }
