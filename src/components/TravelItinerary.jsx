@@ -8,7 +8,7 @@ import DecorativeBorder from './DecorativeBorder'
 import DestinationArt, { ACCENTS } from './DestinationArt'
 import WeatherHero from './WeatherHero'
 import DayWeather, { useLegWeather, dateForDay } from './LegWeather'
-import EntryAlerts, { AlertsSummary } from './EntryAlerts'
+import EntryAlerts, { AlertsSummary, NoActionNote, UrgentBanner } from './EntryAlerts'
 
 /* The site's shared reveal: same offset, duration and easing as SectionHeading
    and the Home page paragraphs, so /travel scrolls like every other page. */
@@ -340,7 +340,11 @@ export default function TravelItinerary() {
     <>
       <Sprite />
 
-      <section className="marble relative overflow-hidden bg-choco-radial px-5 pb-10 pt-28 text-center sm:px-8 sm:pt-32">
+      <div className="mx-auto max-w-5xl px-5 pt-24 sm:px-8 sm:pt-28">
+        <UrgentBanner />
+      </div>
+
+      <section className="marble relative overflow-hidden bg-choco-radial px-5 pb-10 pt-6 text-center sm:px-8 sm:pt-8">
         <Sparkles className="opacity-60" />
         <div className="relative mx-auto max-w-6xl">
           <motion.p {...REVEAL} className="eyebrow">{TRIP.span}</motion.p>
@@ -387,17 +391,18 @@ export default function TravelItinerary() {
         </div>
       </section>
 
-      <section className="marble relative overflow-hidden bg-chocolate px-5 py-16 sm:px-8 sm:py-20">
+      <section id="before-you-fly" className="marble relative overflow-hidden bg-chocolate px-5 py-16 sm:px-8 sm:py-20">
         <div className="relative mx-auto max-w-5xl">
           <SectionHeading
             eyebrow="Paperwork & deadlines"
-            title="Before You Fly"
-            subtitle="Timings count back from each arrival, so these update themselves as the trip approaches. Every link goes to the official site — confirm there, as rules change and depend on your passport and visa type."
+            title="Action Required"
+            subtitle="Everything here needs someone to go and do it. Timings count back from each arrival, so they update themselves as the trip approaches. Every link goes to the official site — confirm there, as rules change and depend on your passport and visa type."
           />
           <Reveal delay={0.06}><AlertsSummary /></Reveal>
           <Reveal delay={0.12}>
-            <EntryAlerts className="mt-10" />
+            <EntryAlerts className="mt-10" actionableOnly />
           </Reveal>
+          <Reveal delay={0.18}><NoActionNote /></Reveal>
         </div>
       </section>
 

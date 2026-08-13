@@ -126,6 +126,11 @@ function Card({ req, i }) {
   )
 }
 
+/** Items that need someone to go and do something. */
+export const ACTIONABLE = REQUIREMENTS.filter((r) => !!r.action)
+/** Items that need nothing in advance. */
+export const PASSIVE = REQUIREMENTS.filter((r) => !r.action)
+
 /** Ordered by when it must be done, so the list reads top to bottom as a plan. */
 function order(items) {
   const rank = (r) => {
@@ -138,20 +143,77 @@ function order(items) {
 }
 
 export function AlertsSummary() {
-  const now = REQUIREMENTS.filter((r) => ['open', 'anytime'].includes(statusOf(r).state)).length
-  const soon = REQUIREMENTS.filter((r) => statusOf(r).state === 'upcoming').length
-  const info = REQUIREMENTS.length - now - soon
+  const now = ACTIONABLE.filter((r) => ['open', 'anytime'].includes(statusOf(r).state)).length
+  const soon = ACTIONABLE.filter((r) => statusOf(r).state === 'upcoming').length
   return (
     <ul className="tv-al-sum">
       <li className="is-now"><b>{now}</b><span>to do now</span></li>
       <li><b>{soon}</b><span>opening soon</span></li>
-      <li><b>{info}</b><span>for information</span></li>
     </ul>
   )
 }
 
-export default function EntryAlerts({ leg = null, className = '' }) {
-  const items = leg ? REQUIREMENTS.filter((r) => r.leg === leg) : REQUIREMENTS
+/** The two things that need nothing in advance, kept out of the alert stack. */
+export function NoActionNote() {
+  if (!PASSIVE.length) return null
+  return (
+    <div className="tv-al-none">
+      <span className="tv-al-none-h">Nothing to do in advance</span>
+      <ul>
+        {PASSIVE.map((r) => (
+          <li key={r.id}>
+            <b>{r.country}</b> — {r.title}. <span>{r.subtitle}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+/**
+ * A banner for anything open right now. Sits at the top of the page so an
+ * open window is the first thing seen, not something found by scrolling.
+ */
+export function UrgentBanner() {
+  const live = order(ACTIONABLE.filter((r) => ['open', 'anytime'].includes(statusOf(r).state)))
+  if (!live.length) return null
+  const lead = live[0]
+  const s = statusOf(lead)
+  const country = COUNTRIES[lead.country] ?? {}
+
+  return (
+    <motion.aside
+      initial={{ opacity: 0, y: -14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+      style={{ '--c': country.key, '--c-tint': country.tint }}
+      className="tv-urgent"
+      role="status"
+    >
+      <span className="tv-urgent-pulse" aria-hidden="true" />
+      <div className="tv-urgent-text">
+        <strong>
+          {live.length} {live.length === 1 ? 'thing needs' : 'things need'} doing now
+        </strong>
+        <span>
+          Next: {lead.title} — {lead.country} · due {fmt(s.arrive)}
+          {s.daysToArrival >= 0 && ` (${s.daysToArrival} day${s.daysToArrival === 1 ? '' : 's'})`}
+        </span>
+      </div>
+      <a href="#before-you-fly" className="tv-urgent-go">
+        See all
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M9 5.4 15.6 12 9 18.6" />
+        </svg>
+      </a>
+    </motion.aside>
+  )
+}
+
+export default function EntryAlerts({ leg = null, className = '', actionableOnly = false }) {
+  const base = actionableOnly ? ACTIONABLE : REQUIREMENTS
+  const items = leg ? base.filter((r) => r.leg === leg) : base
   if (!items.length) return null
 
   return (

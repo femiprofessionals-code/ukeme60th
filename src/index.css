@@ -509,3 +509,51 @@ select.field {
   .tv-al-dot { animation: none; }
   .tv-al-meter span { transition: none; }
 }
+
+/* ---- urgent banner ---- */
+.tv-urgent {
+  display: flex; align-items: center; gap: .85rem;
+  padding: .85rem 1rem; border-radius: .9rem; position: relative; overflow: hidden;
+  background: linear-gradient(120deg, var(--c-tint, rgba(232,84,60,.2)), rgba(9,9,10,.85) 70%);
+  box-shadow: 0 0 0 1px var(--c, #E8543C) inset, 0 0 30px -12px var(--c, #E8543C);
+}
+.tv-urgent-pulse {
+  width: 9px; height: 9px; flex: none; border-radius: 50%;
+  background: var(--c, #E8543C); box-shadow: 0 0 10px 2px var(--c, #E8543C);
+  animation: twinkle 1.8s ease-in-out infinite;
+}
+.tv-urgent-text { min-width: 0; display: flex; flex-direction: column; gap: .1rem; }
+.tv-urgent-text strong {
+  font-family: 'Jost', sans-serif; font-size: .84rem; font-weight: 700;
+  letter-spacing: .02em; color: #FFF7E6;
+}
+.tv-urgent-text span {
+  font-family: 'Jost', sans-serif; font-size: .7rem; color: rgba(243,234,214,.72);
+  overflow: hidden; text-overflow: ellipsis;
+}
+.tv-urgent-go {
+  margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: .3rem;
+  padding: .45rem .8rem; border-radius: 999px; text-decoration: none;
+  font-family: 'Jost', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: #16110C;
+  background: linear-gradient(135deg, #FFE7BC, var(--c, #E8543C));
+  transition: transform .25s, filter .25s;
+}
+.tv-urgent-go:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.tv-urgent-go:focus-visible { outline: 2px solid #FFF7E6; outline-offset: 3px; }
+
+/* ---- the pair that need nothing done ---- */
+.tv-al-none {
+  margin-top: 2rem; padding: 1rem 1.15rem; border-radius: .8rem;
+  background: rgba(9,9,10,.5); box-shadow: 0 0 0 1px rgba(190,150,80,.14) inset;
+}
+.tv-al-none-h {
+  display: block; font-family: 'Jost', sans-serif; font-size: .58rem;
+  letter-spacing: .22em; text-transform: uppercase; color: rgba(243,234,214,.55);
+}
+.tv-al-none ul { margin: .6rem 0 0; padding: 0; list-style: none; display: grid; gap: .4rem; }
+.tv-al-none li { font-size: .82rem; line-height: 1.5; color: rgba(243,234,214,.7); }
+.tv-al-none b { color: #DEC894; font-weight: 700; }
+.tv-al-none span { color: rgba(243,234,214,.5); }
+
+@media (prefers-reduced-motion: reduce) { .tv-urgent-pulse { animation: none; } }
