@@ -24,13 +24,16 @@ const FILES = import.meta.glob(
   { eager: true, import: 'default' },
 )
 
+/** Small words that stay lowercase unless they lead the caption. */
+const MINOR = new Set(['of', 'the', 'and', 'a', 'an', 'in', 'on', 'at', 'to', 'by', 'du', 'de'])
+
 /** "opera-house" -> "Opera House"; digits alone are treated as no caption. */
 function captionFrom(rest) {
   if (!rest || /^\d+$/.test(rest)) return null
-  return rest
-    .split(/[-_]+/)
-    .filter(Boolean)
-    .map((w) => (w.length <= 2 ? w : w[0].toUpperCase() + w.slice(1)))
+  const words = rest.split(/[-_]+/).filter(Boolean)
+  if (!words.length) return null
+  return words
+    .map((w, i) => (i > 0 && MINOR.has(w.toLowerCase()) ? w.toLowerCase() : w[0].toUpperCase() + w.slice(1)))
     .join(' ')
 }
 
