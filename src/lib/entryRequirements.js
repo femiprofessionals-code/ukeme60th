@@ -21,6 +21,15 @@ export const ARRIVALS = {
   guangzhou: '2026-08-27',
 }
 
+/** Country colour + drawn mark, so each card reads as a place at a glance. */
+export const COUNTRIES = {
+  'Indonesia':      { key: '#E8543C', tint: 'rgba(232,84,60,.16)',  mark: 'doc' },
+  'Singapore':      { key: '#EF5B5B', tint: 'rgba(239,91,91,.16)',  mark: 'card' },
+  'Australia':      { key: '#3E86D6', tint: 'rgba(62,134,214,.16)', mark: 'passport' },
+  'Hong Kong':      { key: '#D46A93', tint: 'rgba(212,106,147,.14)',mark: 'check' },
+  'Mainland China': { key: '#D9434A', tint: 'rgba(217,67,74,.16)',  mark: 'alert' },
+}
+
 export const REQUIREMENTS = [
   // ---------------------------------------------------------------- Indonesia
   {
@@ -185,6 +194,12 @@ export function statusOf(req, today = new Date()) {
   const arrive = new Date(y, m - 1, d)
   const daysToArrival = Math.round((arrive - now) / 86400000)
 
+  // informational items have no deadline of their own — the arrival line says
+  // when they matter, and telling someone to "do this now" would be wrong
+  if (!req.action) {
+    return { state: daysToArrival < 0 ? 'past' : 'passive', daysToArrival, arrive }
+  }
+
   if (req.opensDaysBefore == null) {
     return {
       state: daysToArrival < 0 ? 'past' : 'anytime',
@@ -206,3 +221,19 @@ export function statusOf(req, today = new Date()) {
 
 export const fmt = (d) =>
   d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })
+
+/** The date an item must be finished by — used to order the list. */
+export function deadlineOf(req) {
+  if (!req.arrival) return Infinity
+  const [y, m, d] = req.arrival.split('-').map(Number)
+  return new Date(y, m - 1, d).getTime()
+}
+
+/** Urgency 0..1 across the two weeks before the deadline, for the meter. */
+export function urgencyOf(req, today = new Date()) {
+  const s = statusOf(req, today)
+  if (!s.arrive || s.state === 'past' || s.state === 'passive') return null
+  const days = s.daysToArrival
+  if (days <= 0) return 1
+  return Math.max(0, Math.min(1, 1 - days / 14))
+}

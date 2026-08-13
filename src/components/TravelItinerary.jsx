@@ -8,7 +8,7 @@ import DecorativeBorder from './DecorativeBorder'
 import DestinationArt, { ACCENTS } from './DestinationArt'
 import WeatherHero from './WeatherHero'
 import DayWeather, { useLegWeather, dateForDay } from './LegWeather'
-import EntryAlerts from './EntryAlerts'
+import EntryAlerts, { AlertsSummary } from './EntryAlerts'
 
 /* The site's shared reveal: same offset, duration and easing as SectionHeading
    and the Home page paragraphs, so /travel scrolls like every other page. */
@@ -394,7 +394,8 @@ export default function TravelItinerary() {
             title="Before You Fly"
             subtitle="Timings count back from each arrival, so these update themselves as the trip approaches. Every link goes to the official site — confirm there, as rules change and depend on your passport and visa type."
           />
-          <Reveal delay={0.1}>
+          <Reveal delay={0.06}><AlertsSummary /></Reveal>
+          <Reveal delay={0.12}>
             <EntryAlerts className="mt-10" />
           </Reveal>
         </div>
