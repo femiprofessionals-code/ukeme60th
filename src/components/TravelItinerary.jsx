@@ -5,8 +5,8 @@ import Sparkles from './Sparkles'
 import SectionHeading from './SectionHeading'
 import GoldDivider from './GoldDivider'
 import DecorativeBorder from './DecorativeBorder'
-import DestinationArt from './DestinationArt'
-import LegWeather from './LegWeather'
+import DestinationArt, { ACCENTS } from './DestinationArt'
+import DayWeather, { useLegWeather, dateForDay } from './LegWeather'
 import EntryAlerts from './EntryAlerts'
 
 /* The site's shared reveal: same offset, duration and easing as SectionHeading
@@ -196,6 +196,8 @@ function LegCard({ leg, onGo }) {
   const i = LEGS.indexOf(leg)
   const prev = LEGS[i - 1]
   const next = LEGS[i + 1]
+  const wx = useLegWeather(leg)
+  const accent = ACCENTS[leg.id]
 
   return (
     <motion.article
@@ -203,10 +205,12 @@ function LegCard({ leg, onGo }) {
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="glass-card relative overflow-hidden rounded-2xl p-6 shadow-card sm:p-8"
+      style={{ '--accent': accent?.key, '--accent-glow': accent?.glow }}
+      className="tv-leg glass-card relative overflow-hidden rounded-2xl shadow-card"
     >
-      <DestinationArt id={leg.id} />
-      <div className="relative flex items-start justify-between gap-4">
+      <DestinationArt id={leg.id} name={leg.name} />
+      <div className="relative p-6 sm:p-8">
+      <div className="flex items-start justify-between gap-4">
         <span className="tv-glyph">
           {leg.num ? leg.num : <Ico name="plane" className="h-5 w-5" />}
         </span>
@@ -240,8 +244,6 @@ function LegCard({ leg, onGo }) {
 
       <p className="display mt-5 text-xl italic leading-snug text-ivory/90 sm:text-2xl">{leg.summary}</p>
 
-      <LegWeather leg={leg} />
-
       <EntryAlerts leg={leg.id} className="mt-5" />
 
       <ul className="mt-6 list-none p-0">
@@ -251,7 +253,10 @@ function LegCard({ leg, onGo }) {
                 idx === leg.days.length - 1 ? 'is-last' : ''
               }`}>
             <span className="tv-mark"><Ico name={d.icon} className="h-4 w-4" /></span>
-            <div className="tv-when"><b>Day {String(d.n).padStart(2, '0')}</b> · {d.when}</div>
+            <div className="tv-when">
+              <b>Day {String(d.n).padStart(2, '0')}</b> · {d.when}
+              <DayWeather wx={wx[dateForDay(d.n)]} />
+            </div>
             <div className="tv-what">{d.what}</div>
             <div>
               {d.detail && <p className="tv-detail">{d.detail}</p>}
@@ -278,6 +283,7 @@ function LegCard({ leg, onGo }) {
           )}
         </nav>
       )}
+      </div>
     </motion.article>
   )
 }
