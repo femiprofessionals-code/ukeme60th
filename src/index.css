@@ -257,7 +257,11 @@ select.field {
 .tv-code   { font-family: 'Jost', sans-serif; font-size: .95rem; font-weight: 600; letter-spacing: .06em; color: #F3EAD6; line-height: 1; }
 .tv-time   { margin-top: .3rem; font-family: 'Jost', sans-serif; font-size: .74rem; color: rgba(243,234,214,.75); white-space: nowrap; }
 .tv-city   { margin-top: .2rem; font-size: .68rem; color: rgba(243,234,214,.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tv-dur    { font-family: 'Jost', sans-serif; font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: #DEC894; white-space: nowrap; }
+.tv-dur {
+  font-family: 'Jost', sans-serif; font-size: .82rem; font-weight: 700;
+  letter-spacing: .06em; color: var(--accent, #DEC894); white-space: nowrap;
+  text-shadow: 0 0 14px var(--accent-glow, rgba(190,150,80,.4));
+}
 .tv-fnote  { font-family: 'Jost', sans-serif; font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(243,234,214,.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tv-rule   { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(190,150,80,.5), transparent); }
 .tv-track-icon { width: 13px; height: 13px; flex: none; stroke: #DEC894; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transform: rotate(90deg); }
@@ -346,3 +350,68 @@ select.field {
 .tv-alert-pulse { animation: twinkle 2.4s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) { .tv-alert-pulse { animation: none; } }
+
+
+/* ---- weather laid over the destination scene ---- */
+.tv-wxhero {
+  position: absolute; inset-inline: 0; bottom: 0; z-index: 2;
+  padding: 0 1.1rem .7rem;
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.tv-wxhero-top { display: flex; align-items: center; gap: .7rem; }
+.tv-wxhero-now { display: flex; align-items: center; gap: .35rem; }
+.tv-wxhero-ic { width: 30px; height: 30px; color: #FFF3D8; display: block;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
+.tv-wxhero-ic svg { width: 100%; height: 100%; display: block; }
+.tv-wxhero-deg {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.6rem; font-weight: 600;
+  line-height: .9; color: #FFF7E6; text-shadow: 0 2px 12px rgba(0,0,0,.75);
+}
+.tv-wxhero-meta { display: flex; flex-direction: column; gap: .1rem; }
+.tv-wxhero-cond {
+  font-family: 'Jost', sans-serif; font-size: .82rem; font-weight: 600;
+  color: #FFF3D8; text-shadow: 0 1px 8px rgba(0,0,0,.75);
+}
+.tv-wxhero-range {
+  font-family: 'Jost', sans-serif; font-size: .66rem; letter-spacing: .06em;
+  color: rgba(255,243,216,.82); text-shadow: 0 1px 8px rgba(0,0,0,.8);
+}
+.tv-wxhero-days {
+  display: flex; gap: .3rem; list-style: none; margin: 0; padding: 0;
+  overflow-x: auto; scrollbar-width: none;
+}
+.tv-wxhero-days::-webkit-scrollbar { display: none; }
+.tv-wxhero-days li {
+  flex: 0 0 auto; display: flex; align-items: center; gap: .28rem;
+  padding: .2rem .5rem; border-radius: 999px;
+  background: rgba(9,9,10,.42);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 1px rgba(255,243,216,.18) inset;
+}
+.tv-wxhero-dow {
+  font-family: 'Jost', sans-serif; font-size: .58rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase; color: rgba(255,243,216,.82);
+}
+.tv-wxhero-dic { width: 13px; height: 13px; color: #FFE7B0; display: block; }
+.tv-wxhero-dic svg { width: 100%; height: 100%; display: block; }
+.tv-wxhero-dt { font-family: 'Jost', sans-serif; font-size: .68rem; font-weight: 700; color: #FFF7E6; }
+
+/* the scene needs more room now that the forecast sits on it */
+.tv-scene { height: 176px; }
+@media (min-width: 640px) { .tv-scene { height: 208px; } }
+.tv-scene::after {
+  background: linear-gradient(180deg, rgba(9,9,10,0) 30%, rgba(9,9,10,.55) 62%, rgba(9,9,10,.9) 100%);
+}
+.tv-scene-cap { bottom: auto; top: .6rem; left: 1.1rem; }
+
+/* the forecast row scrolls — fade the ends so it reads that way rather than clipped */
+.tv-wxhero-days {
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 26px), transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 26px), transparent 100%);
+  padding-right: 26px;
+}
+.tv-wxhero-days li { padding: .18rem .42rem; gap: .24rem; }
+.tv-wxhero-dow { font-size: .55rem; }
+.tv-wxhero-dt  { font-size: .64rem; }
+/* keep the scene caption clear of the fixed site header */
+.tv-scene-cap { top: auto; bottom: 4.4rem; }

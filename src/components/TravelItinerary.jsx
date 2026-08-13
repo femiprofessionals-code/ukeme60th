@@ -6,6 +6,7 @@ import SectionHeading from './SectionHeading'
 import GoldDivider from './GoldDivider'
 import DecorativeBorder from './DecorativeBorder'
 import DestinationArt, { ACCENTS } from './DestinationArt'
+import WeatherHero from './WeatherHero'
 import DayWeather, { useLegWeather, dateForDay } from './LegWeather'
 import EntryAlerts from './EntryAlerts'
 
@@ -208,7 +209,10 @@ function LegCard({ leg, onGo }) {
       style={{ '--accent': accent?.key, '--accent-glow': accent?.glow }}
       className="tv-leg glass-card relative overflow-hidden rounded-2xl shadow-card"
     >
-      <DestinationArt id={leg.id} name={leg.name} />
+      <div className="relative">
+        <DestinationArt id={leg.id} name={leg.name} />
+        <WeatherHero leg={leg} wx={wx} />
+      </div>
       <div className="relative p-6 sm:p-8">
       <div className="flex items-start justify-between gap-4">
         <span className="tv-glyph">

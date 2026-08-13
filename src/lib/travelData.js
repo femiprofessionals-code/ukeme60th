@@ -31,7 +31,7 @@ export const TRIP = {
 
 export const LEGS = [
   {
-    id: 'outbound', coords: null, range: null, num: null, icon: 'plane', name: 'Outbound',
+    id: 'outbound', coords: { lat: 38.9072, lon: -77.0369 }, range: ['2026-08-14', '2026-08-15'], num: null, icon: 'plane', name: 'Outbound',
     place: 'Washington · Abu Dhabi', span: 'Fri Aug 14 — Sun Aug 16', nights: '2 days in transit',
     arc: 40, stay: null,
     summary:
