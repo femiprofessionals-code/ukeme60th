@@ -56,7 +56,7 @@ export function useLegWeather(leg) {
     setByDate({})
     if (!leg?.coords || !leg?.range) return
 
-    const key = `uk60-wx-${leg.id}`
+    const key = `uk60-wx-f-${leg.id}`
     try {
       const hit = JSON.parse(sessionStorage.getItem(key) || 'null')
       if (hit && Date.now() - hit.at < 3600e3) { setByDate(hit.byDate); return }
@@ -68,7 +68,7 @@ export function useLegWeather(leg) {
     const url =
       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
       `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max` +
-      `&timezone=auto&start_date=${start}&end_date=${end}`
+      `&temperature_unit=fahrenheit&timezone=auto&start_date=${start}&end_date=${end}`
 
     fetch(url, { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
@@ -102,7 +102,7 @@ export default function DayWeather({ wx }) {
   if (!wx) return null
   const [label, kind] = CODES[wx.code] ?? ['—', 'cloud']
   return (
-    <span className="tv-daywx" title={`${label} · high ${Math.round(wx.hi)}°C, low ${Math.round(wx.lo)}°C`}>
+    <span className="tv-daywx" title={`${label} · high ${Math.round(wx.hi)}°F, low ${Math.round(wx.lo)}°F`}>
       <span className="tv-daywx-ic"><WxGlyph kind={kind} /></span>
       <span className="tv-daywx-t">{Math.round(wx.hi)}°</span>
       <span className="tv-daywx-lo">{Math.round(wx.lo)}°</span>

@@ -368,6 +368,12 @@ select.field {
 .tv-wxhero-dic { width: 13px; height: 13px; color: #FFE7B0; display: block; }
 .tv-wxhero-dic svg { width: 100%; height: 100%; display: block; }
 .tv-wxhero-dt { font-family: 'Jost', sans-serif; font-size: .68rem; font-weight: 700; color: #FFF7E6; }
+/* the unit, once, next to the big number — a bare degree sign is ambiguous */
+.tv-wxhero-u {
+  font-style: normal; font-size: .42em; font-weight: 600;
+  letter-spacing: .04em; margin-left: .06em; vertical-align: .5em;
+  color: rgba(255,247,230,.78);
+}
 
 
 /* the forecast row scrolls — fade the ends so it reads that way rather than clipped */

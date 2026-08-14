@@ -9,11 +9,10 @@
 //  sits, measured clockwise from Washington at the top. It drives the gold
 //  progress arc on the chart.
 //
-//  `places` is the gallery that opens with each leg. `art` names a drawn scene
-//  in PlaceArt.jsx. To use a photograph instead, put the file in
-//  public/places/ and add `photo: '/places/<file>.jpg'` — the gallery layers it
-//  over the drawing and fades it in once it has loaded, so a missing or broken
-//  file simply leaves the drawing showing. Nothing else needs changing.
+//  `places` feeds the backdrop behind each leg. `art` names a drawn scene in
+//  PlaceArt.jsx, and those are only the fallback: drop a photograph into
+//  src/assets/places/ named after the leg and it takes over. See
+//  src/assets/places/README.md.
 // ===========================================================================
 
 const F = (code, city, time) => ({ code, city, time })
@@ -128,7 +127,7 @@ export const LEGS = [
       { id: 'harbour-bridge', name: 'Harbour Bridge', note: 'From The Rocks',
         blurb: 'The Shangri-La sits under it. Locals call it the Coathanger; the arch is a 503-metre single steel span.', art: 'harbourBridge' },
       { id: 'bondi', name: 'Bondi Beach', note: 'East of the city',
-        blurb: 'August is late winter here — the water is around 17°C and the walk to Bronte is the better use of the morning.', art: 'bondi' },
+        blurb: 'August is late winter here — the water is around 63°F and the walk to Bronte is the better use of the morning.', art: 'bondi' },
     ],
     summary: 'A late connection in Singapore, a red-eye south, and two nights over the harbour.',
     days: [

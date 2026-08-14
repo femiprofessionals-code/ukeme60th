@@ -47,12 +47,12 @@ export default function WeatherHero({ leg, wx }) {
       <div className="tv-wxhero-top">
         <div className="tv-wxhero-now">
           <span className="tv-wxhero-ic"><WxGlyph kind={kind} /></span>
-          <span className="tv-wxhero-deg">{Math.round(lead.hi)}°</span>
+          <span className="tv-wxhero-deg">{Math.round(lead.hi)}°<i className="tv-wxhero-u">F</i></span>
         </div>
         <div className="tv-wxhero-meta">
           <span className="tv-wxhero-cond">{label}</span>
           <span className="tv-wxhero-range">
-            Low {Math.round(lead.lo)}°
+            Low {Math.round(lead.lo)}°F
             {lead.pop != null && ` · ${lead.pop}% rain`}
           </span>
         </div>

@@ -36,33 +36,36 @@ export const REQUIREMENTS = [
     id: 'id-declaration-1',
     leg: 'jakarta',
     country: 'Indonesia',
-    title: 'All Indonesia arrival declaration',
+    title: 'All Indonesia arrival card',
     subtitle: 'First entry — Jakarta',
     body:
-      'The electronic customs and health declaration for arrival in Indonesia. ' +
-      'It must be completed within the three days before you land.',
+      'One form covering immigration, customs and health for arrival in ' +
+      'Indonesia. It must be completed within the three days before you land, ' +
+      'and it returns a QR code to show on arrival. It is free — the official ' +
+      'portal is allindonesia.imigrasi.go.id and it never asks for payment.',
     arrival: ARRIVALS.jakarta,
     arrivalLabel: 'Sun 16 Aug · Jakarta (CGK)',
     opensDaysBefore: 3,
-    action: 'Complete the declaration',
-    href: 'https://allindonesia.beacukai.go.id/',
+    action: 'Complete the arrival card',
+    href: 'https://allindonesia.imigrasi.go.id/',
     severity: 'action',
   },
   {
     id: 'id-declaration-2',
     leg: 'bali',
     country: 'Indonesia',
-    title: 'All Indonesia arrival declaration',
+    title: 'All Indonesia arrival card',
     subtitle: 'Second entry — Bali',
     body:
-      'You enter Indonesia a second time in Bali, so the declaration has to be ' +
-      'done again. The first one does not carry over. Both travelling groups ' +
-      'need their own — the main group arrives on the 22nd, the second on the 23rd.',
+      'You enter Indonesia a second time in Bali, so the card has to be done ' +
+      'again. The first one does not carry over. Both travelling groups need ' +
+      'their own — the main group arrives on the 22nd, the second on the 23rd. ' +
+      'Free, on the same official portal.',
     arrival: ARRIVALS.baliMain,
     arrivalLabel: 'Sat 22 Aug (main) · Sun 23 Aug (second group) · Bali (DPS)',
     opensDaysBefore: 3,
-    action: 'Complete the declaration',
-    href: 'https://allindonesia.beacukai.go.id/',
+    action: 'Complete the arrival card',
+    href: 'https://allindonesia.imigrasi.go.id/',
     severity: 'action',
   },
   {
