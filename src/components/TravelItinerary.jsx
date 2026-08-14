@@ -11,6 +11,7 @@ import WeatherHero from './WeatherHero'
 import DayWeather, { useLegWeather, dateForDay } from './LegWeather'
 import EntryAlerts, { ACTIONABLE, AlertsSummary, UrgentBanner } from './EntryAlerts'
 import ActionsModal from './ActionsModal'
+import DownloadPdf from './DownloadPdf'
 
 /* The site's shared reveal: same offset, duration and easing as SectionHeading
    and the Home page paragraphs, so /travel scrolls like every other page. */
@@ -376,6 +377,8 @@ export default function TravelItinerary() {
           <Reveal delay={0.34}>
             <p className="mt-5 font-body text-xs uppercase tracking-[0.26em] text-gold">{TRIP.note}</p>
           </Reveal>
+
+          <Reveal delay={0.38}><DownloadPdf className="mt-8" /></Reveal>
 
           <Reveal delay={0.4} className="mx-auto mt-12 max-w-2xl">
             <DecorativeBorder>
