@@ -2,6 +2,7 @@ import { jsPDF } from 'jspdf'
 import { LEGS, GROUPS, NOTES, TRIP } from './travelData'
 import { REQUIREMENTS, statusOf, fmt } from './entryRequirements'
 import { CORMORANT_600, JOST_400, JOST_600 } from './pdfFonts'
+import { PHOTOS } from './placePhotos'
 
 /*
  * The itinerary as a document you can keep.
@@ -100,6 +101,87 @@ function rule(doc, x, y, w, { color = GOLD_PALE, weight = 0.7 } = {}) {
   doc.line(x, y, x + w, y)
 }
 
+/* ------------------------------------------------------------------ images */
+
+/**
+ * Load a photograph and crop it to the shape it will occupy.
+ *
+ * jsPDF's addImage stretches to whatever box it is given, so handing it a 3:2
+ * photograph for a wide band would squash it. This does the cover-fit crop on
+ * a canvas first — and, because it re-encodes at roughly twice the printed
+ * size, it also keeps the file down.
+ *
+ * `focus` biases the crop vertically: 0.35 keeps a little more sky than
+ * ground, which suits landmarks.
+ */
+async function cropped(url, wPx, hPx, { quality = 0.72, focus = 0.35 } = {}) {
+  const img = await new Promise((resolve, reject) => {
+    const i = new Image()
+    i.onload = () => resolve(i)
+    i.onerror = () => reject(new Error(`could not load ${url}`))
+    i.src = url
+  })
+  const canvas = document.createElement('canvas')
+  canvas.width = wPx
+  canvas.height = hPx
+  const ctx = canvas.getContext('2d')
+  ctx.fillStyle = '#efe9dd'
+  ctx.fillRect(0, 0, wPx, hPx)
+  const scale = Math.max(wPx / img.naturalWidth, hPx / img.naturalHeight)
+  const dw = img.naturalWidth * scale
+  const dh = img.naturalHeight * scale
+  ctx.drawImage(img, (wPx - dw) / 2, (hPx - dh) * focus, dw, dh)
+  return canvas.toDataURL('image/jpeg', quality)
+}
+
+/*
+ * The drawn box must have the same proportions as the cropped image, or
+ * addImage stretches it — the plate was 4.1:1 while the image was 3:1, which
+ * quietly made every landmark 37% too wide.
+ */
+const PLATE = {
+  cover: { px: [1000, 460], focus: 0.34 },
+  leg: { px: [900, 360], focus: 0.12 },
+}
+const plateHeight = (kind, w = COL) => w * (PLATE[kind].px[1] / PLATE[kind].px[0])
+
+/** The first photograph for a leg, if one has been added. */
+const photoFor = (legId) => PHOTOS[legId]?.[0]?.photo ?? null
+
+/**
+ * Every photograph the document needs, cropped up front.
+ * One that will not load is simply left out — the layout copes without it.
+ */
+async function loadArtwork() {
+  const art = { legs: {} }
+  await Promise.all(LEGS.map(async (l) => {
+    const url = photoFor(l.id)
+    if (!url) return
+    try {
+      art.legs[l.id] = await cropped(url, ...PLATE.leg.px, { focus: PLATE.leg.focus })
+    } catch (err) {
+      console.warn('Skipping photograph for', l.id, err)
+    }
+  }))
+  const coverUrl = photoFor('bali') || photoFor('sydney') || LEGS.map((l) => photoFor(l.id)).find(Boolean)
+  if (coverUrl) {
+    try {
+      art.cover = await cropped(coverUrl, ...PLATE.cover.px, { quality: 0.78, focus: PLATE.cover.focus })
+    } catch (err) {
+      console.warn('Skipping the cover photograph', err)
+    }
+  }
+  return art
+}
+
+/** A photograph with the document's hairline frame around it. */
+function plate(doc, data, x, y, w, h) {
+  doc.addImage(data, 'JPEG', x, y, w, h, undefined, 'FAST')
+  doc.setDrawColor(...GOLD_PALE)
+  doc.setLineWidth(0.7)
+  doc.rect(x, y, w, h)
+}
+
 /* ----------------------------------------------------------- the document */
 
 /** A running state object beats threading `y` and `page` through everything. */
@@ -130,9 +212,17 @@ function makeCursor(doc) {
   }
 }
 
-function cover(doc) {
+function cover(doc, art) {
   doc.setFillColor(...PAPER)
   doc.rect(0, 0, PAGE.w, PAGE.h, 'F')
+
+  const cx = PAGE.w / 2
+  const hasPhoto = !!art.cover
+
+  // the photograph sits inside the frame, not bleeding off the sheet
+  const plateY = 58
+  const plateH = plateHeight('cover')
+  if (hasPhoto) plate(doc, art.cover, 56, plateY, COL, plateH)
 
   // a double hairline border, the way the invitation is framed
   doc.setDrawColor(...GOLD)
@@ -142,63 +232,65 @@ function cover(doc) {
   doc.setLineWidth(0.6)
   doc.rect(41, 41, PAGE.w - 82, PAGE.h - 82)
 
-  const cx = PAGE.w / 2
-
-  // monogram
+  // the monogram, punched out of the photograph's lower edge like a seal
+  const monoY = hasPhoto ? plateY + plateH : 150
+  doc.setFillColor(...PAPER)
+  doc.circle(cx, monoY, 41, 'F')
   doc.setDrawColor(...GOLD)
   doc.setLineWidth(1)
-  doc.circle(cx, 150, 34, 'S')
+  doc.circle(cx, monoY, 34, 'S')
   doc.setDrawColor(...GOLD_PALE)
   doc.setLineWidth(0.5)
-  doc.circle(cx, 150, 39, 'S')
+  doc.circle(cx, monoY, 39, 'S')
   doc.setFont(DISPLAY, 'normal')
   doc.setFontSize(34)
   doc.setTextColor(...GOLD)
-  doc.text('60', cx, 162, { align: 'center' })
+  doc.text('60', cx, monoY + 12, { align: 'center' })
 
-  eyebrow(doc, 'Ukeme Falade', cx, 232, { size: 9, color: SOFT, gap: 3.4, align: 'center' })
+  let y = monoY + 82
+  eyebrow(doc, 'Ukeme Falade', cx, y, { size: 9, color: SOFT, gap: 3.4, align: 'center' })
 
   doc.setFont(DISPLAY, 'normal')
-  doc.setFontSize(44)
+  doc.setFontSize(40)
   doc.setTextColor(...INK)
-  const title = doc.splitTextToSize(TRIP.kicker, COL - 60)
-  let ty = 288
-  title.forEach((line) => { doc.text(line, cx, ty, { align: 'center' }); ty += 46 })
+  const title = doc.splitTextToSize(TRIP.kicker, COL - 40)
+  y += 48
+  title.forEach((line) => { doc.text(line, cx, y, { align: 'center' }); y += 42 })
 
-  rule(doc, cx - 60, ty + 4, 120, { color: GOLD, weight: 0.9 })
+  rule(doc, cx - 60, y - 8, 120, { color: GOLD, weight: 0.9 })
 
   doc.setFont(DISPLAY, 'normal')
   doc.setFontSize(17)
   doc.setTextColor(...SOFT)
-  doc.text(TRIP.span, cx, ty + 38, { align: 'center' })
+  y += 24
+  doc.text(TRIP.span, cx, y, { align: 'center' })
 
   doc.setFont(BODY, 'normal')
   doc.setFontSize(9.5)
   doc.setTextColor(...SOFT)
   const lede = doc.splitTextToSize(TRIP.lede, COL - 96)
-  let ly = ty + 76
-  lede.forEach((line) => { doc.text(line, cx, ly, { align: 'center' }); ly += 15 })
+  y += 34
+  lede.forEach((line) => { doc.text(line, cx, y, { align: 'center' }); y += 15 })
 
   // the four counts
   const stats = TRIP.stats
   const boxW = (COL - 60) / stats.length
-  const bx = M.l + 30
-  const by = ly + 40
+  const by = y + 40
   rule(doc, M.l + 30, by - 22, COL - 60, { color: GOLD_PALE })
-  stats.forEach((s, i) => {
-    const x = bx + boxW * i + boxW / 2
+  stats.forEach((st, i) => {
+    const x = M.l + 30 + boxW * i + boxW / 2
     doc.setFont(DISPLAY, 'normal')
     doc.setFontSize(26)
     doc.setTextColor(...GOLD)
-    doc.text(String(s.n), x, by + 12, { align: 'center' })
-    eyebrow(doc, s.label, x, by + 28, { size: 6.6, color: FAINT, gap: 1.4, align: 'center' })
+    doc.text(String(st.n), x, by + 12, { align: 'center' })
+    eyebrow(doc, st.label, x, by + 28, { size: 6.6, color: FAINT, gap: 1.4, align: 'center' })
   })
   rule(doc, M.l + 30, by + 42, COL - 60, { color: GOLD_PALE })
 
   doc.setFont(DISPLAY, 'normal')
   doc.setFontSize(13)
   doc.setTextColor(...SOFT)
-  doc.text(TRIP.note, cx, by + 80, { align: 'center' })
+  doc.text(TRIP.note, cx, by + 78, { align: 'center' })
 
   eyebrow(doc, 'ukemeturns60.com/travel', cx, PAGE.h - 76, { size: 7, color: FAINT, gap: 2, align: 'center' })
 }
@@ -272,8 +364,16 @@ function flightStrip(doc, cur, f) {
   cur.y += h + 10
 }
 
-function leg(doc, cur, l) {
-  cur.room(150)
+function leg(doc, cur, l, art) {
+  const shot = art.legs[l.id]
+  const shotH = plateHeight('leg')
+  // keep the photograph with the header it belongs to
+  cur.room(shot ? shotH + 170 : 150)
+
+  if (shot) {
+    plate(doc, shot, M.l, cur.y - 10, COL, shotH)
+    cur.y += shotH + 6
+  }
 
   // header
   eyebrow(doc, l.num ? `Stop ${l.num}` : 'In transit', M.l, cur.y, { size: 6.8 })
@@ -496,7 +596,10 @@ function stampChrome(doc) {
 export const PDF_FILENAME = 'Ukeme-Falade-60th-Itinerary.pdf'
 
 /** Build the document and hand it to the browser as a download. */
-export function downloadItineraryPdf() {
+export async function downloadItineraryPdf() {
+  // the photographs are cropped before anything is drawn, so a slow or
+  // missing one cannot leave a half-built document
+  const art = await loadArtwork()
   const doc = makeDoc()
 
   doc.setProperties({
@@ -506,13 +609,13 @@ export function downloadItineraryPdf() {
     keywords: 'itinerary, travel, 60th birthday',
   })
 
-  cover(doc)
+  cover(doc, art)
 
   const cur = makeCursor(doc)
   cur.next()
 
   departures(doc, cur)
-  LEGS.forEach((l) => leg(doc, cur, l))
+  LEGS.forEach((l) => leg(doc, cur, l, art))
   paperwork(doc, cur)
   notes(doc, cur)
   stampChrome(doc)

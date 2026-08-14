@@ -15,7 +15,7 @@ export default function DownloadPdf({ className = '' }) {
     setState('working')
     try {
       const { downloadItineraryPdf } = await import('../lib/travelPdf')
-      downloadItineraryPdf()
+      await downloadItineraryPdf()
       setState('done')
       setTimeout(() => setState('idle'), 4000)
     } catch (err) {
