@@ -24,8 +24,9 @@ import GoldDivider from './GoldDivider'
  * (Netlify and Vercel both offer it on paid plans).
  */
 
-// SHA-256 of the agreed passphrase.
-const DIGEST = '2b6e11c4e109485ebfe925aa9c8f57a8b4d18e179c90defa6272ae11d19cd8aa'
+// SHA-256 of the agreed passphrase. Case-sensitive; the entry is trimmed but
+// not lower-cased, so it has to be typed exactly as agreed.
+const DIGEST = '19645cffeb04d78f7b1ac42dea372611ed3687ed52658f8198e9a64a1137f8f2'
 const KEY = 'uk60-travel-unlocked'
 
 async function digest(text) {
