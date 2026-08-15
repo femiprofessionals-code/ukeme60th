@@ -15,7 +15,7 @@
 //  src/assets/places/README.md.
 // ===========================================================================
 
-const F = (code, city, time) => ({ code, city, time })
+const F = (code, city, time, term) => ({ code, city, time, term })
 
 export const TOTAL_DAYS = 17
 
@@ -75,12 +75,12 @@ export const LEGS = [
       { id: 'kota-tua', name: 'Kota Tua', note: 'The old town',
         blurb: 'Dutch colonial Batavia around Fatahillah Square — the clock tower, the shutters, and the painted rental bicycles.', art: 'kotaTua' },
     ],
-    summary: 'One night in the capital before the afternoon hop east to Surabaya.',
+    summary: 'One night in the capital before the midday hop east to Surabaya.',
     days: [
       { n: 3, when: 'Sun · Aug 16', icon: 'plane', what: 'Arrive Jakarta',
         detail: 'Land CGK 9:00 AM · Four Seasons check-in from 3:00 PM', chip: 'confirmed' },
       { n: 4, when: 'Mon · Aug 17', icon: 'bag', what: 'Check out',
-        detail: 'Out by 12:00 PM · on to Halim for the afternoon flight', chip: 'confirmed' },
+        detail: 'Out by 12:00 PM · GA312 leaves Soekarno–Hatta T3 at 12:10 PM', chip: 'confirmed' },
     ],
   },
   {
@@ -103,8 +103,9 @@ export const LEGS = [
     days: [
       { n: 4, when: 'Mon · Aug 17', icon: 'plane', what: 'Jakarta → Surabaya',
         detail: 'JW Marriott check-in from 2:00 PM.',
-        flight: { from: F('HLP', 'Jakarta Halim', '1:35 PM'), to: F('SUB', 'Surabaya', '3:00 PM'),
-                  dur: '1h 25m' }, chip: 'confirmed' },
+        flight: { no: 'GA312',
+                  from: F('CGK', 'Jakarta', '12:10 PM', 'T3'), to: F('SUB', 'Surabaya', '1:50 PM', 'T1'),
+                  dur: '1h 40m' }, chip: 'confirmed' },
       { n: 5, when: 'Tue · Aug 18', icon: 'sun', what: 'Surabaya',
         detail: 'Full day · JW Marriott Surabaya', chip: 'confirmed' },
       { n: 6, when: 'Wed · Aug 19', icon: 'plane', what: 'Surabaya → Singapore',

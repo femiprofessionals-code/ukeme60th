@@ -174,9 +174,10 @@ function Flight({ f }) {
       <div>
         <div className="tv-code">{f.from.code}</div>
         <div className="tv-time">{f.from.time}</div>
-        <div className="tv-city">{f.from.city}</div>
+        <div className="tv-city">{f.from.city}{f.from.term ? ` · ${f.from.term}` : ''}</div>
       </div>
       <div className="min-w-0 text-center">
+        {f.no && <div className="tv-fno">{f.no}</div>}
         <div className="tv-dur">{f.dur}</div>
         <div className="my-1.5 flex items-center gap-1">
           <span className="tv-rule" />
@@ -188,7 +189,7 @@ function Flight({ f }) {
       <div className="text-right">
         <div className="tv-code">{f.to.code}</div>
         <div className="tv-time">{f.to.time}</div>
-        <div className="tv-city">{f.to.city}</div>
+        <div className="tv-city">{f.to.city}{f.to.term ? ` · ${f.to.term}` : ''}</div>
       </div>
     </div>
   )

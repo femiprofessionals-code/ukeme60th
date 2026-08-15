@@ -803,3 +803,10 @@ select.field {
   .tv-dl-ic.is-busy { animation: none; }
   .tv-dl:hover:not(:disabled) { transform: none; }
 }
+
+/* flight number, when the booking gives us one */
+.tv-fno {
+  font-family: 'Jost', sans-serif; font-size: .58rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--accent, #DEC894);
+  margin-bottom: .15rem;
+}

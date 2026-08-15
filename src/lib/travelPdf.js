@@ -340,7 +340,7 @@ function flightStrip(doc, cur, f) {
   doc.setFont(BODY, 'normal')
   doc.setFontSize(8)
   doc.setTextColor(...SOFT)
-  doc.text(`${f.from.time} · ${f.from.city}`, inner, y + 30)
+  doc.text(`${f.from.time} · ${f.from.city}${f.from.term ? ' ' + f.from.term : ''}`, inner, y + 30)
 
   const rightX = PAGE.w - M.r - 14
   doc.setFont(BODY, 'bold')
@@ -350,7 +350,7 @@ function flightStrip(doc, cur, f) {
   doc.setFont(BODY, 'normal')
   doc.setFontSize(8)
   doc.setTextColor(...SOFT)
-  doc.text(`${f.to.time} · ${f.to.city}`, rightX, y + 30, { align: 'right' })
+  doc.text(`${f.to.time} · ${f.to.city}${f.to.term ? ' ' + f.to.term : ''}`, rightX, y + 30, { align: 'right' })
 
   // the run between them
   const midL = inner + 62
@@ -359,7 +359,8 @@ function flightStrip(doc, cur, f) {
   arrow(doc, midR - 14, y + 15, 14)
   const mid = (midL + midR) / 2
   eyebrow(doc, f.dur, mid, y + 11, { size: 6.4, color: GOLD, gap: 1.2, align: 'center' })
-  if (f.note) eyebrow(doc, f.note, mid, y + 29, { size: 6.2, color: FAINT, gap: 1.2, align: 'center' })
+  const under = f.no || f.note
+  if (under) eyebrow(doc, under, mid, y + 29, { size: 6.2, color: FAINT, gap: 1.2, align: 'center' })
 
   cur.y += h + 10
 }
